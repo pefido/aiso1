@@ -1,0 +1,16 @@
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+*~
+.netrwhist
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+
+*.class
+
+.mtj.tmp/
+
+*.jar
+*.war
+*.ear
