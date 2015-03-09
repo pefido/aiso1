@@ -11,7 +11,7 @@ public class SysCallTable {
 	static {
 		table.put (SysCallNumber.SOME_SYSCALL_0, new DummySyscallHandler());
 		table.put (SysCallNumber.SOME_SYSCALL_1, new DummySyscallHandler());
-		table.put (SysCallNumber.LOAD_PROGRAM, new DummySyscallHandler());
+		table.put (SysCallNumber.LOAD_PROGRAM, new LoadSysCallHandler());
 		table.put (SysCallNumber.EXIT, new DummySyscallHandler());
 	}
 	

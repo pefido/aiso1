@@ -6,10 +6,12 @@ import aiso.sim.Configuration;
 import aiso.sim.Program;
 import aiso.sim.hardware.Clockable;
 import aiso.sim.console.*;
+import aiso.sim.hardware.*;
+import aiso.sim.os.SysCallInterruptHandler;
 
 public class MyOS extends OperatingSystem{
 	
-	private List<Program> jobList;
+	private InterruptHandler[] interruptList;
 	private Console terminal;
 
 	@Override
@@ -21,8 +23,10 @@ public class MyOS extends OperatingSystem{
 		}
 		
 		//2: inicializar estruturas de dados internas
-		jobList = new LinkedList<Program>();
+		interruptList = new InterruptHandler[20];
+		interruptList[Interrupt.SYSCALL.ordinal()] = new SysCallInterruptHandler();
 		terminal = new Console();
+		
 		
 		//3: lancar execucao da consola
 		terminal.run();
@@ -31,7 +35,7 @@ public class MyOS extends OperatingSystem{
 	@Override
 	public InterruptHandler[] getInterruptVector() {
 		// TODO Auto-generated method stub
-		return null;
+		return interruptList;
 	}
 
 }
