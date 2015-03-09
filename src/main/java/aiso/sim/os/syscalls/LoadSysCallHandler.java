@@ -4,8 +4,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import aiso.sim.Program;
 import aiso.sim.hardware.CPUCore;
 import aiso.sim.hardware.InvalidRegisterException;
+import aiso.sim.os.Context;
 import aiso.sim.parser.ParseException;
 import aiso.sim.parser.Parser;
 
@@ -15,9 +17,9 @@ public class LoadSysCallHandler implements SysCallHandler {
 		try {
 			InputStream ficheiro = new FileInputStream(core.getRegister(1).toString());
 			Parser myParser = new Parser(ficheiro);
-			myParser.Program();
-			//System.out.println(core.getRegister(1));
-			//System.out.println("cenas");
+			Program myProgram = myParser.Program();
+			core.load(new Context(myProgram));
+			
 		} catch (InvalidRegisterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
