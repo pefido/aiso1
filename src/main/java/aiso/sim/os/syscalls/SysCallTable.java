@@ -13,6 +13,7 @@ public class SysCallTable {
 		table.put (SysCallNumber.SOME_SYSCALL_1, new DummySyscallHandler());
 		table.put (SysCallNumber.LOAD_PROGRAM, new LoadSysCallHandler());
 		table.put (SysCallNumber.EXIT, new ExitSyscallHandler());
+		table.put (SysCallNumber.YIELD, new YieldSysCallHandler());
 	}
 	
 	public static SysCallHandler getHandler(SysCallNumber number) {

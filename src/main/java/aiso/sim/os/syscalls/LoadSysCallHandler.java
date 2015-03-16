@@ -15,10 +15,12 @@ public class LoadSysCallHandler implements SysCallHandler {
 	
 	public void handle(CPUCore core) {
 		try {
+			System.out.println("cenas");
 			InputStream ficheiro = new FileInputStream(core.getRegister(1).toString());
 			Parser myParser = new Parser(ficheiro);
 			Program myProgram = myParser.Program();
-			core.load(new Context(myProgram));
+			System.out.println(core.getPCB());
+			core.getPCB().add(new Context(myProgram));
 			
 		} catch (InvalidRegisterException e) {
 			// TODO Auto-generated catch block

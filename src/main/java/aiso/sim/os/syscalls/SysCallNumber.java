@@ -12,7 +12,8 @@ public enum SysCallNumber {
 	SOME_SYSCALL_0, // Dummy syscall, replace at will 
 	SOME_SYSCALL_1,	// Dummy syscall, replace at will 
 	LOAD_PROGRAM,	// Load program 
-	EXIT;			// Terminate the execution of the current process	
+	EXIT,			// Terminate the execution of the current process	
+	YIELD;
 	
 	
 	/**
@@ -40,6 +41,7 @@ public enum SysCallNumber {
 		case "SOME_SYSCALL_1" : return SOME_SYSCALL_1;
 		case "LOAD_PROGRAM" : return LOAD_PROGRAM;
 		case "EXIT" : return EXIT;
+		case "YIELD" : return YIELD;
 		default: throw new NoSuchSysCallException(str);
 		}
 	}

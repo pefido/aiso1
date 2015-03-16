@@ -3,8 +3,11 @@ package aiso.sim.hardware;
 import aiso.sim.instructions.Instruction;
 import aiso.sim.os.Context;
 import aiso.sim.os.OperatingSystem;
+import aiso.sim.os.PCB;
 
 public class SimpleCPUCore extends CPUCore {
+	
+	
 	
 	/**
 	 * Number of registers included in each CPU core
@@ -26,7 +29,8 @@ public class SimpleCPUCore extends CPUCore {
 	@Override
 	public synchronized void load(Context context) {
 		super.load(context);
-		instructionRunningTime = 0;
+		//TODO: ver isto 
+		//instructionRunningTime = 0;
 	}
 
 	/**
@@ -83,6 +87,16 @@ public class SimpleCPUCore extends CPUCore {
 	@Override
 	public Object[] getRegisters() {
 		return this.registers;
+	}
+	
+	public void setPCB(PCB pcb){
+		System.out.println(pcb);
+		PCBController = pcb;
+	}
+	
+	public PCB getPCB(){
+		System.out.println("pois " + PCBController);
+		return PCBController;
 	}
 
 }

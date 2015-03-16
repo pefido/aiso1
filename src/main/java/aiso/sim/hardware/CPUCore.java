@@ -2,6 +2,7 @@ package aiso.sim.hardware;
 
 import aiso.sim.instructions.Instruction;
 import aiso.sim.os.Context;
+import aiso.sim.os.PCB;
 
 /**
  * Base class for the implementation of a CPU core
@@ -10,6 +11,9 @@ import aiso.sim.os.Context;
  *
  */
 public abstract class CPUCore implements Clockable {
+	
+	protected PCB PCBController;
+	
 
 	/**
 	 * The context currently running in the code
@@ -70,5 +74,12 @@ public abstract class CPUCore implements Clockable {
 	 * @throws InvalidRegisterException Thrown if number is not a valid register 
 	 */
 	public abstract <T> T getRegister(int number)  throws InvalidRegisterException;
+	
+	public abstract PCB getPCB();
+	
+	public abstract void setPCB(PCB pcb);
+	
+	
+	
 
 }

@@ -16,6 +16,8 @@ import aiso.sim.instructions.InstructionList.InstructionListIterator;
  */
 public class Context {
 	
+	/*private PCB PCBController;*/
+	
 	/**
 	 * CPU core where the context is running
 	 */
@@ -85,4 +87,8 @@ public class Context {
 	public void jumpBack() {
 		this.instructionList = this.stack.pop();
 	}
+	
+	/*public void setPCB(PCB pcb){
+		PCBController = pcb;
+	}*/
 }

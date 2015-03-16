@@ -13,12 +13,16 @@ public class MyOS extends OperatingSystem{
 	
 	private InterruptHandler[] interruptList;
 	private Console terminal;
+	private PCB MyPCB;
+	private CPUCore MyCPU;
 
 	@Override
 	public void load() {
 		
 		//1: listar hardware encontrado
 		for(Clockable a: Configuration.devices){
+			if(a.getDescription().equals("Simple CPU core"))
+				MyCPU = (CPUCore)a;
 			System.out.println(a.getDescription());
 		}
 		
@@ -26,6 +30,7 @@ public class MyOS extends OperatingSystem{
 		interruptList = new InterruptHandler[20];
 		interruptList[Interrupt.SYSCALL.ordinal()] = new SysCallInterruptHandler();
 		terminal = new Console();
+		MyPCB = new PCB(MyCPU);
 		
 		
 		//3: lancar execucao da consola
