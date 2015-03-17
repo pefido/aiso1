@@ -1,6 +1,8 @@
 package aiso.sim.os;
 
 import aiso.sim.Configuration;
+import aiso.sim.console.Console;
+import aiso.sim.hardware.CPUCore;
 
 /**
  * Base class for the operating system implementation.
@@ -10,6 +12,11 @@ import aiso.sim.Configuration;
  *
  */
 public abstract class OperatingSystem {
+	
+	protected InterruptHandler[] interruptList;
+	protected Console terminal;
+	protected PCB MyPCB;
+	protected CPUCore MyCPU;
 	
 	/**
 	 * The single instance of the operating system
@@ -44,5 +51,7 @@ public abstract class OperatingSystem {
 	 * @return The interrupt vector
 	 */
 	public  abstract InterruptHandler[] getInterruptVector();
+	
+	public abstract PCB getPCB();
 	
 }

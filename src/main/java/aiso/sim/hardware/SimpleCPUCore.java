@@ -88,15 +88,5 @@ public class SimpleCPUCore extends CPUCore {
 	public Object[] getRegisters() {
 		return this.registers;
 	}
-	
-	public void setPCB(PCB pcb){
-		System.out.println(pcb);
-		PCBController = pcb;
-	}
-	
-	public PCB getPCB(){
-		System.out.println("pois " + PCBController);
-		return PCBController;
-	}
 
 }

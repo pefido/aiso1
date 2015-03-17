@@ -10,11 +10,6 @@ import aiso.sim.hardware.*;
 import aiso.sim.os.SysCallInterruptHandler;
 
 public class MyOS extends OperatingSystem{
-	
-	private InterruptHandler[] interruptList;
-	private Console terminal;
-	private PCB MyPCB;
-	private CPUCore MyCPU;
 
 	@Override
 	public void load() {
@@ -22,15 +17,15 @@ public class MyOS extends OperatingSystem{
 		//1: listar hardware encontrado
 		for(Clockable a: Configuration.devices){
 			if(a.getDescription().equals("Simple CPU core"))
-				MyCPU = (CPUCore)a;
+				MyCPU = (SimpleCPUCore)a;
 			System.out.println(a.getDescription());
 		}
 		
 		//2: inicializar estruturas de dados internas
 		interruptList = new InterruptHandler[20];
 		interruptList[Interrupt.SYSCALL.ordinal()] = new SysCallInterruptHandler();
-		terminal = new Console();
 		MyPCB = new PCB(MyCPU);
+		terminal = new Console();
 		
 		
 		//3: lancar execucao da consola
@@ -41,6 +36,10 @@ public class MyOS extends OperatingSystem{
 	public InterruptHandler[] getInterruptVector() {
 		// TODO Auto-generated method stub
 		return interruptList;
+	}
+	
+	public PCB getPCB(){
+		return MyPCB;
 	}
 
 }

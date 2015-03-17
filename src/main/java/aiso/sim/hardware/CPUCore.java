@@ -12,7 +12,7 @@ import aiso.sim.os.PCB;
  */
 public abstract class CPUCore implements Clockable {
 	
-	protected PCB PCBController;
+	//protected PCB PCBController;
 	
 
 	/**
@@ -74,10 +74,6 @@ public abstract class CPUCore implements Clockable {
 	 * @throws InvalidRegisterException Thrown if number is not a valid register 
 	 */
 	public abstract <T> T getRegister(int number)  throws InvalidRegisterException;
-	
-	public abstract PCB getPCB();
-	
-	public abstract void setPCB(PCB pcb);
 	
 	
 	

@@ -12,13 +12,10 @@ public class PCB {
 	public PCB(CPUCore core){
 		pQueue = new LinkedList<Context>();
 		runCPU = core;
-		//System.out.println("cenasdsf " + this);
-		core.setPCB(this);
 	}
 	
 	public void add(Context a){//exec
-		System.out.println("cenas2");
-		if(runCPU.getContext() != null)
+		if(runCPU.getContext() == null)
 			runCPU.load(a);
 		else pQueue.add(a);
 	}
