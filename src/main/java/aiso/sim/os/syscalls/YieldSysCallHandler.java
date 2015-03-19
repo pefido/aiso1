@@ -6,7 +6,7 @@ import aiso.sim.os.OperatingSystem;
 public class YieldSysCallHandler implements SysCallHandler{
 	
 	public void handle(CPUCore core) {
-		OperatingSystem.getInstance().getPCB().requeue();
+		OperatingSystem.getInstance().getPCB().requeue(core);
 	}
 
 }

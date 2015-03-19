@@ -15,16 +15,22 @@ public class MyOS extends OperatingSystem{
 	public void load() {
 		
 		//1: listar hardware encontrado
-		for(Clockable a: Configuration.devices){
+		for(int i=0; i<Configuration.devices.length; i++){
+			if(Configuration.devices[i].getDescription().equals("Simple CPU core"))
+				MyCores[i] = (SimpleCPUCore)Configuration.devices[i];
+			System.out.println(Configuration.devices[i].getDescription());
+		}
+		
+		/*for(Clockable a: Configuration.devices){
 			if(a.getDescription().equals("Simple CPU core"))
 				MyCPU = (SimpleCPUCore)a;
 			System.out.println(a.getDescription());
-		}
+		}*/
 		
 		//2: inicializar estruturas de dados internas
 		interruptList = new InterruptHandler[20];
 		interruptList[Interrupt.SYSCALL.ordinal()] = new SysCallInterruptHandler();
-		MyPCB = new PCB(MyCPU);
+		MyPCB = new PCB(MyCores);
 		terminal = new Console();
 		
 		
