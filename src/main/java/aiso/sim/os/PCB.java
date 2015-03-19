@@ -6,24 +6,24 @@ import java.util.Queue;
 import aiso.sim.hardware.CPUCore;
 
 public class PCB {
-	Queue<Context> pQueue;
+	Queue<MyProcess> pQueue;
 	CPUCore runCPU;
 	
 	public PCB(CPUCore core){
-		pQueue = new LinkedList<Context>();
+		pQueue = new LinkedList<MyProcess>();
 		runCPU = core;
 	}
 	
-	public void add(Context a){//exec
+	public void add(MyProcess a){//exec
 		if(runCPU.getContext() == null)
-			runCPU.load(a);
+			runCPU.load(a.getContext());
 		else pQueue.add(a);
 	}
 	
 	public void dequeue(){//exit
 		if(pQueue.isEmpty())
 			runCPU.load(null);
-		else runCPU.load(pQueue.remove());
+		else runCPU.load(pQueue.remove().getContext());
 	}
 	
 	public void requeue(){//Yield

@@ -8,6 +8,7 @@ import aiso.sim.Program;
 import aiso.sim.hardware.CPUCore;
 import aiso.sim.hardware.InvalidRegisterException;
 import aiso.sim.os.Context;
+import aiso.sim.os.MyProcess;
 import aiso.sim.os.OperatingSystem;
 import aiso.sim.parser.ParseException;
 import aiso.sim.parser.Parser;
@@ -19,7 +20,8 @@ public class LoadSysCallHandler implements SysCallHandler {
 			InputStream ficheiro = new FileInputStream(core.getRegister(1).toString());
 			Parser myParser = new Parser(ficheiro);
 			Program myProgram = myParser.Program();
-			OperatingSystem.getInstance().getPCB().add(new Context(myProgram));
+			//OperatingSystem.getInstance().getPCB().add(new Context(myProgram));
+			OperatingSystem.getInstance().getPCB().add(new MyProcess(new Context(myProgram)));
 			
 		} catch (InvalidRegisterException e) {
 			// TODO Auto-generated catch block
