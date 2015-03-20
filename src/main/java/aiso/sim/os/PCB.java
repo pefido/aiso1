@@ -17,27 +17,17 @@ public class PCB {
 		CPUJob = new MyProcess[] {null, null, null};
 	}
 	
-	public void add(MyProcess a){//exec
+	public void enqueue(MyProcess a){//exec
 		int tempCore = -1;
-		//System.out.println("cenas aqui");
-		for(int i=0; i<runCPUs.length /*|| tempCore != -1*/; i++){
+		for(int i=0; i<runCPUs.length; i++){
 			if(runCPUs[i].getContext() == null)
 				tempCore = i;
 		}
-		//System.out.println("tempcore: " + tempCore);
 		if(tempCore != -1){
-			//System.out.println("load crl");
 			CPUJob[tempCore] = a;
 			runCPUs[tempCore].load(a.getContext());
 		}
 		else pQueue.add(a);
-		
-		
-		/*if(runCPU.getContext() == null){
-			CPUJob = a;
-			runCPU.load(a.getContext());
-		}
-		else pQueue.add(a);*/
 	}
 	
 	public void dequeue(CPUCore core){//exit

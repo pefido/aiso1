@@ -21,12 +21,6 @@ public class MyOS extends OperatingSystem{
 			System.out.println(Configuration.devices[i].getDescription());
 		}
 		
-		/*for(Clockable a: Configuration.devices){
-			if(a.getDescription().equals("Simple CPU core"))
-				MyCPU = (SimpleCPUCore)a;
-			System.out.println(a.getDescription());
-		}*/
-		
 		//2: inicializar estruturas de dados internas
 		interruptList = new InterruptHandler[20];
 		interruptList[Interrupt.SYSCALL.ordinal()] = new SysCallInterruptHandler();
