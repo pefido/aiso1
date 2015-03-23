@@ -50,8 +50,8 @@ public class Configuration {
 	 */
 	public static final Clockable[] devices = new Clockable[]{
 				// Fill with hardware components
-				new aiso.sim.hardware.SimpleCPUCore(),
-				new aiso.sim.hardware.SimpleCPUCore()
+				/*new aiso.sim.hardware.SimpleCPUCore(),
+				new aiso.sim.hardware.SimpleCPUCore()*/
 			};
 	
 	

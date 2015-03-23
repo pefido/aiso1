@@ -1,0 +1,12 @@
+computation 1000
+syscall SOME_SYSCALL_0
+syscall SOME_SYSCALL_1 <10 20 20>
+load 0x12000
+store 0x23224
+loop 4 {
+	computation 10
+	loop 1 {
+		load 0x12
+	}
+	syscall SOME_SYSCALL_1 <100 10>
+}

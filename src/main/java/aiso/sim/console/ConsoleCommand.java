@@ -23,9 +23,32 @@ public abstract class ConsoleCommand {
 	public abstract void run(List<String> arguments);
 	
 	/**
+	 * Obtain the command's number of mandatory arguments
+	 * @return The number of arguments
+	 */
+	public abstract int getNumberArguments();
+	
+	/**
+	 * Obtain the command's number of optional arguments
+	 * @return The number of arguments
+	 */
+	public abstract int getNumberOptionalArguments();
+	
+	/**
 	 * A string representation of the command's usage.
 	 * Posted by the console's {@link HelpCommand help} command.
 	 * @return The string representation of the command's usage.
 	 */
 	public abstract String usage();
+	
+	/**
+	 * Checks if the given number of arguments abides to the command's specification
+	 * @param numberOfArguments Number of arguments to check
+	 * @return true if the number of arguments is valid, false otherwise
+	 */
+	public boolean checkNumberArguments(int numberOfArguments) {
+		int mandatoryArguments = getNumberArguments();
+		return ! (numberOfArguments < mandatoryArguments ||
+				numberOfArguments > mandatoryArguments + getNumberOptionalArguments());
+	}
 }

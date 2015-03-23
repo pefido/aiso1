@@ -48,7 +48,9 @@ public class SysCall implements Instruction {
 	@Override
 	public void run (final CPUCore cpuCore) throws InvalidRegisterException {
 		cpuCore.setRegisters(0, this.number);
-		cpuCore.setRegisters(1, this.arguments);
+		for (int i = 0; i < this.arguments.length; i++) {
+			cpuCore.setRegisters(i, this.number);
+		}
 		cpuCore.handleInterrupt(Interrupt.SYSCALL);
 	}
 	

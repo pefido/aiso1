@@ -11,7 +11,7 @@ import aiso.sim.os.syscalls.SysCallTable;
  * @author Herve
  *
  */
-public class SysCallInterruptHandler implements InterruptHandler {
+class SysCallInterruptHandler implements InterruptHandler {
 
 	/**
 	 * The handler implementation.
@@ -19,16 +19,11 @@ public class SysCallInterruptHandler implements InterruptHandler {
 	 * number retrieved from register(0)
 	 */
 	@Override
-	public void handle(CPUCore cpuCore) {
-		try {
+	public void handle(CPUCore cpuCore) throws Exception{
 			SysCallNumber number =  cpuCore.<SysCallNumber>getRegister(0);
 			Logger.info("CPU core " + cpuCore + " is handling system call " + number);
 			
 			SysCallTable.getHandler(number).handle(cpuCore);
-			
-		} catch (InvalidRegisterException e) {
-			Logger.internalError(e.getLocalizedMessage());
-		}
 	}
 
 }

@@ -36,13 +36,11 @@ public enum SysCallNumber {
 	 * @return The SysCallNumber
 	 */
 	public static SysCallNumber fromString (String str) throws NoSuchSysCallException {
-		switch (str) {
-		case "SOME_SYSCALL_0" : return SOME_SYSCALL_0;
-		case "SOME_SYSCALL_1" : return SOME_SYSCALL_1;
-		case "LOAD_PROGRAM" : return LOAD_PROGRAM;
-		case "EXIT" : return EXIT;
-		case "YIELD" : return YIELD;
-		default: throw new NoSuchSysCallException(str);
+		for(SysCallNumber scn: values) {
+			if (scn.toString().equalsIgnoreCase(str)) {
+				return scn;
+			}
 		}
+		throw new NoSuchSysCallException(str);
 	}
 }

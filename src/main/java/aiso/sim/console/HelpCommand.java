@@ -24,10 +24,20 @@ public class HelpCommand extends ConsoleCommand {
 	public String getCommandName() {
 		return "help";
 	}
+	
+	@Override
+	public int getNumberArguments() {
+		return 0;
+	}
+
+	@Override
+	public int getNumberOptionalArguments() {
+		return 0;
+	}
 
 	@Override
 	public String usage() {
-		return "help\t\t - information on the commands available.";
+		return "help\t\t\t - information on the commands available.";
 	}
 
 }

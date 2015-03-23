@@ -14,5 +14,5 @@ public interface InterruptHandler {
 	 * Handler implementation
 	 * @param core The core where the interrupt is being handled
 	 */
-	void handle(CPUCore core);
+	void handle(CPUCore core) throws Exception;;
 }

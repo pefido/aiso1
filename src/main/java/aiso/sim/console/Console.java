@@ -28,6 +28,8 @@ public class Console {
 		addCommand(new ExecCommand());
 		addCommand(new HelpCommand());
 		addCommand(new ShutdownCommand());
+		addCommand(new SaveStatsCommand());
+		addCommand(new ResetStatsCommand());
 	}
 	
 	/**
@@ -75,7 +77,12 @@ public class Console {
 				while (tokenizer.hasMoreTokens()) {
 				    args.add(tokenizer.nextToken());
 				}
-				cc.run(args);
+				if (cc.checkNumberArguments(args.size()))
+					cc.run(args);
+				else {
+					Console.err.println("Wrong number of arguments");
+					Console.err.println("usage: " + cc.usage());
+				}
 			}
 		}
 	}

@@ -23,8 +23,10 @@ public class ExecCommand extends ConsoleCommand {
 			// For simplicity's sake we are assuming that the console is 
 			// always run by CPU core 0, and thus the exec syscall commands 
 			// are always targeted at that same core
-			Configuration.cpuCores[0].setRegisters(0, SysCallNumber.LOAD_PROGRAM, arguments.get(0));
-			Configuration.cpuCores[0].handleInterrupt(Interrupt.SYSCALL);
+			for (String programFile: arguments) {
+				Configuration.cpuCores[0].setRegisters(0, SysCallNumber.LOAD_PROGRAM, programFile);
+				Configuration.cpuCores[0].handleInterrupt(Interrupt.SYSCALL);
+			}
 			
 		} catch (Exception e) {
 			Console.err.println(e.getMessage());
@@ -35,10 +37,20 @@ public class ExecCommand extends ConsoleCommand {
 	public String getCommandName() {
 		return "exec";
 	}
+	
+	@Override
+	public int getNumberArguments() {
+		return 1;
+	}
+
+	@Override
+	public int getNumberOptionalArguments() {
+		return Integer.MAX_VALUE - 1;
+	}
 
 	@Override
 	public String usage() {
-		return "exec prog\t - execute program \"prog\"";
+		return "exec prog\t\t - execute program \"prog\"";
 	}
 
 }

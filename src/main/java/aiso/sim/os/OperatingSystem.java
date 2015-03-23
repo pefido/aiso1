@@ -17,7 +17,7 @@ public abstract class OperatingSystem {
 	protected Console terminal;
 	protected PCB MyPCB;
 	protected CPUCore MyCPU;
-	protected CPUCore[] MyCores = new CPUCore[2];
+	protected CPUCore[] MyCores;
 	
 	/**
 	 * The single instance of the operating system

@@ -2,26 +2,26 @@ package aiso.sim.console;
 
 import java.util.List;
 
+
 /**
- * Implementation of the "shutdown" command
+ * Implementation of the "exec" command
  * 
  * @author Herve Paulino
  *
  */
-public class ShutdownCommand extends ConsoleCommand {
+public class ResetStatsCommand extends ConsoleCommand {
 
 	/**
-	 * Shuts down the simulator
+	 * Executes the program given as argument
 	 */
 	@Override
 	public void run(List<String> arguments) {
-		Console.out.println("AISO simulator shutting down");
-		System.exit(0);
+		Console.out.println("Not implemented");
 	}
 
 	@Override
 	public String getCommandName() {
-		return "shutdown";
+		return "reset_stats";
 	}
 	
 	@Override
@@ -36,7 +36,7 @@ public class ShutdownCommand extends ConsoleCommand {
 
 	@Override
 	public String usage() {
-		return "shutdown\t\t - terminate the execution of the OS (and of the simulator)";
+		return "reset_stats\t\t - reset the statistics of the SO";
 	}
 
 }

@@ -7,7 +7,14 @@ import aiso.sim.os.PCB;
 
 public class SimpleCPUCore extends CPUCore {
 	
-	
+private static class IdentifierFactory {
+		
+		private static int identifier = 0;
+		
+		static synchronized int newIdentifier() {
+			return identifier++;
+		}
+	}
 	
 	/**
 	 * Number of registers included in each CPU core
@@ -24,13 +31,17 @@ public class SimpleCPUCore extends CPUCore {
 	 * before concluding
 	 */
 	private int instructionRunningTime;
+	
+	/**
+	 * The core's identifier
+	 */
+	private final int identifier = IdentifierFactory.newIdentifier();
 
 
 	@Override
 	public synchronized void load(Context context) {
 		super.load(context);
-		//TODO: ver isto 
-		//instructionRunningTime = 0;
+		instructionRunningTime = 0;
 	}
 
 	/**
@@ -59,12 +70,18 @@ public class SimpleCPUCore extends CPUCore {
 
 	@Override
 	public String getDescription() {
-		return "Simple CPU core";
+		return "Simple CPU core " + this.identifier;
 	}
 
 	@Override
 	public void handleInterrupt(Interrupt interrupt) {
-		OperatingSystem.getInstance().getInterruptVector()[interrupt.ordinal()].handle(this);
+		try {
+			OperatingSystem.getInstance().getInterruptVector()[interrupt.ordinal()].handle(this);
+		}
+		catch (Exception e) {
+			// TODO send exception to the OS
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -87,6 +104,11 @@ public class SimpleCPUCore extends CPUCore {
 	@Override
 	public Object[] getRegisters() {
 		return this.registers;
+	}
+	
+	@Override 
+	public String toString() {
+		return getDescription();
 	}
 
 }
