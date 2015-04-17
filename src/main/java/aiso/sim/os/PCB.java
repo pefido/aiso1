@@ -52,9 +52,11 @@ public class PCB {
 			if(runCPUs[i].equals(core))
 				tempCore = i;
 		}
+		//System.out.println(tempCore);
 		
 		pQueue.add(CPUJob[tempCore]);
 		CPUJob[tempCore] = pQueue.peek();
+		//System.out.println(pQueue.peek().getContext());
 		runCPUs[tempCore].load(pQueue.remove().getContext());
 	}
 	

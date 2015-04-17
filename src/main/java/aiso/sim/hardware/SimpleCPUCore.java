@@ -41,7 +41,8 @@ private static class IdentifierFactory {
 	@Override
 	public synchronized void load(Context context) {
 		super.load(context);
-		instructionRunningTime = 0;
+		//TODO: ver isto
+		//instructionRunningTime = 0;
 	}
 
 	/**
