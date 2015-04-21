@@ -12,47 +12,44 @@ import aiso.sim.hardware.CPUCore;
  *
  */
 public abstract class OperatingSystem {
-	
-	protected InterruptHandler[] interruptList;
-	protected Console terminal;
-	protected PCB MyPCB;
-	protected CPUCore MyCPU;
-	protected CPUCore[] MyCores;
-	
-	/**
-	 * The single instance of the operating system
-	 */
-	private static OperatingSystem instance = null;
-	
-	/**
-	 * Obtain the instance of the operating system
-	 * @return The operating system
-	 */
-	public static final synchronized OperatingSystem getInstance() {
-		if (instance == null) {
-			try {
-				instance = Configuration.operatingSystemClass.getConstructor().newInstance();
-			}
-			catch (Exception e) {
-				Logger.internalError("The operating system class may not be properly "
-						+ "defined in the Configuration class - got error: " + e.getLocalizedMessage());
-				System.exit(1);
-			}
-		}
-		return instance; 
-	}
-	
-	/**
-	 * Load the operating system
-	 */
-	public abstract void load();
-	
-	/**
-	 * Retrieve the interrupt vector
-	 * @return The interrupt vector
-	 */
-	public  abstract InterruptHandler[] getInterruptVector();
-	
-	public abstract PCB getPCB();
-	
+
+  protected InterruptHandler[] interruptList;
+  protected Console terminal;
+
+  /**
+   * The single instance of the operating system
+   */
+  private static OperatingSystem instance = null;
+
+  /**
+   * Obtain the instance of the operating system
+   * @return The operating system
+   */
+  public static final synchronized OperatingSystem getInstance() {
+    if (instance == null) {
+      try {
+        instance = Configuration.operatingSystemClass.getConstructor().newInstance();
+      }
+      catch (Exception e) {
+        Logger.internalError("The operating system class may not be properly "
+            + "defined in the Configuration class - got error: " + e.getLocalizedMessage());
+        System.exit(1);
+      }
+    }
+    return instance; 
+  }
+
+  /**
+   * Load the operating system
+   */
+  public abstract void load();
+
+  /**
+   * Retrieve the interrupt vector
+   * @return The interrupt vector
+   */
+  public  abstract InterruptHandler[] getInterruptVector();
+
+  public abstract MyScheduler getScheduler();
+
 }

@@ -5,7 +5,7 @@ import aiso.sim.os.OperatingSystem;
 
 public class ExitSyscallHandler implements SysCallHandler {
 
-	public void handle(CPUCore core) {
-		OperatingSystem.getInstance().getPCB().dequeue(core);
-	}
+  public void handle(CPUCore core) {
+    OperatingSystem.getInstance().getScheduler().dequeue(core);
+  }
 }

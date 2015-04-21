@@ -8,30 +8,30 @@ import aiso.sim.Program;
 import aiso.sim.hardware.CPUCore;
 import aiso.sim.hardware.InvalidRegisterException;
 import aiso.sim.os.Context;
-import aiso.sim.os.MyProcess;
+import aiso.sim.os.MyPCB;
 import aiso.sim.os.OperatingSystem;
 import aiso.sim.parser.ParseException;
 import aiso.sim.parser.Parser;
 
 public class LoadSysCallHandler implements SysCallHandler {
-	
-	public void handle(CPUCore core) {
-		try {
-			InputStream ficheiro = new FileInputStream(core.getRegister(1).toString());
-			Parser myParser = new Parser(ficheiro);
-			Program myProgram = myParser.Program();
-			OperatingSystem.getInstance().getPCB().enqueue(new MyProcess(new Context(myProgram)));
-			
-		} catch (InvalidRegisterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
+  public void handle(CPUCore core) {
+    try {
+      InputStream ficheiro = new FileInputStream(core.getRegister(1).toString());
+      Parser myParser = new Parser(ficheiro);
+      Program myProgram = myParser.Program();
+      OperatingSystem.getInstance().getScheduler().enqueue(new MyPCB(new Context(myProgram)));
+
+    } catch (InvalidRegisterException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (FileNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (ParseException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
 
 }
