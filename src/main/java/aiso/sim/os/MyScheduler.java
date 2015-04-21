@@ -2,6 +2,7 @@ package aiso.sim.os;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import aiso.sim.hardware.CPUCore;
 
@@ -13,7 +14,7 @@ public class MyScheduler {
 
 
   public MyScheduler(CPUCore[] cores){
-    pQueue = new LinkedList<MyPCB>();
+    pQueue = new ConcurrentLinkedQueue<MyPCB>();//lista thread safe
     runCPUs = cores;
     CPUJob = new MyPCB[] {null, null, null};
   }
