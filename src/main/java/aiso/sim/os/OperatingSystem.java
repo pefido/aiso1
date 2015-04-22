@@ -13,7 +13,6 @@ import aiso.sim.hardware.CPUCore;
  */
 public abstract class OperatingSystem {
 
-  protected InterruptHandler[] interruptList;
   protected Console terminal;
 
   /**

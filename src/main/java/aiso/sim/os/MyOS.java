@@ -1,5 +1,6 @@
 package aiso.sim.os;
-import java.util.LinkedList;
+import interrupts.TimerHandler;
+
 import java.util.List;
 
 import aiso.sim.Configuration;
@@ -12,6 +13,7 @@ import aiso.sim.os.SysCallInterruptHandler;
 
 public class MyOS extends OperatingSystem{
 
+  protected InterruptHandler[] interruptList;
   protected MyScheduler scheduler;
   protected CPUCore MyCPU;
   protected CPUCore[] MyCores;
@@ -21,14 +23,13 @@ public class MyOS extends OperatingSystem{
 
     //1: listar hardware encontrado
     for(int i=0; i<Configuration.devices.length; i++){
-      /*if(Configuration.devices[i].getDescription().contains("Simple CPU core"))
-				MyCores[i] = (SimpleCPUCore)Configuration.devices[i];*/
       System.out.println(Configuration.devices[i].getDescription());
     }
 
     //2: inicializar estruturas de dados internas
     interruptList = new InterruptHandler[20];
     interruptList[Interrupt.SYSCALL.ordinal()] = new SysCallInterruptHandler();
+    interruptList[Interrupt.TIMER.ordinal()] = new TimerHandler();
     MyCores = aiso.sim.Configuration.cpuCores;
     scheduler = new MyScheduler(MyCores);
     terminal = new Console();
