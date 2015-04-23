@@ -17,6 +17,14 @@ public class MyPCB {
   public void setQuantum(int q) {
 	  quantum = q;
   }
+  
+  public void tickQuantum() {
+	  quantum--;
+  }
+  
+  public int getQuantum() {
+	  return quantum;
+  }
 
   public UUID getPID(){
     return PID;
