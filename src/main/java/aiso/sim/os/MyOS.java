@@ -14,7 +14,7 @@ import aiso.sim.os.SysCallInterruptHandler;
 public class MyOS extends OperatingSystem{
 
   protected InterruptHandler[] interruptList;
-  protected MyScheduler scheduler;
+  protected MySchedulerAlg scheduler;
   protected CPUCore MyCPU;
   protected CPUCore[] MyCores;
 
@@ -47,7 +47,7 @@ public class MyOS extends OperatingSystem{
     return interruptList;
   }
 
-  public MyScheduler getScheduler(){
+  public MySchedulerAlg getScheduler(){
     return scheduler;
   }
 

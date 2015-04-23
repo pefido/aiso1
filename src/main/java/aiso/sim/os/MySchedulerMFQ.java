@@ -10,7 +10,6 @@ public class MySchedulerMFQ implements MySchedulerAlg{
 
 	public static final int NQUEUES = 4;
 	private Queue<MyPCB> pQueue;
-	private CPUCore[] runCPUs;
 	private Queue[] qList;
 
 	public MySchedulerMFQ(CPUCore[] cores){
@@ -22,7 +21,6 @@ public class MySchedulerMFQ implements MySchedulerAlg{
 		}
 
 		pQueue = new ConcurrentLinkedQueue<MyPCB>();//lista thread safe
-		runCPUs = cores;
 	}
 
 	@Override
@@ -45,11 +43,10 @@ public class MySchedulerMFQ implements MySchedulerAlg{
 		//iterar pelas queues
 		for (Queue<MyPCB> queue : qList) {
 			if (!queue.isEmpty()) {
-				runCPUs[core].load(pQueue.remove().getContext());
+				return pQueue.remove();
 			}
 		}
-		//Eu preferia retornar o processo do que pô-lo a correr directamente, mas watevs
-		return null;
+		return null; // BLÉH
 	}
 
 	@Override
