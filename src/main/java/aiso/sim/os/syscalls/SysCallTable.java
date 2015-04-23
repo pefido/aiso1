@@ -14,6 +14,7 @@ public class SysCallTable {
 		table.put (SysCallNumber.LOAD_PROGRAM, new LoadSysCallHandler());
 		table.put (SysCallNumber.EXIT, new ExitSyscallHandler());
 		table.put (SysCallNumber.YIELD, new YieldSysCallHandler());
+		table.put (SysCallNumber.IO, new IOSyscallHandler());
 	}
 	
 	public static SysCallHandler getHandler(SysCallNumber number) {

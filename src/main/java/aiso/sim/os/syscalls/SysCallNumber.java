@@ -13,7 +13,8 @@ public enum SysCallNumber {
 	SOME_SYSCALL_1,	// Dummy syscall, replace at will 
 	LOAD_PROGRAM,	// Load program 
 	EXIT,			// Terminate the execution of the current process	
-	YIELD;
+	YIELD,
+	IO;//syscall para fazer io
 	
 	
 	/**

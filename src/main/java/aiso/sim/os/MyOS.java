@@ -24,6 +24,7 @@ public class MyOS extends OperatingSystem{
     //1: listar hardware encontrado
     for(int i=0; i<Configuration.devices.length; i++){
       System.out.println(Configuration.devices[i].getDescription());
+      
     }
 
     //2: inicializar estruturas de dados internas
