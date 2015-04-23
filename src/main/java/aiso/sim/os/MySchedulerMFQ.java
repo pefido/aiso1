@@ -27,12 +27,12 @@ public class MySchedulerMFQ implements MySchedulerAlg{
 
 	@Override
 	public void schedule(MyPCB process) {
-		// TODO Auto-generated method stub
 		// Saber para qual das queues vai o processo
 		// Como ainda não sei como fazer isso, vai random :D
 		int fila = (int) (Math.random() * NQUEUES);
+
 		//Cálculo do quantum depende da fila (110 - 10*i)
-		//process.quantum = 110 - 10 * fila;
+		process.setQuantum(110 - 10 * fila);
 		
 		// Por fim adicionar à fila certa
 		qList[fila].add(process);
