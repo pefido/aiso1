@@ -8,7 +8,7 @@ public class TimerHandler implements InterruptHandler{
 
   @Override
   public void handle(CPUCore core) throws Exception {
-    //Logger.info("Timer interrupt");
+    Logger.info("Timer interrupt");
   }
 
 }
