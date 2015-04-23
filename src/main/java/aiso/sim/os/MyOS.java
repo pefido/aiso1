@@ -32,7 +32,8 @@ public class MyOS extends OperatingSystem{
     interruptList[Interrupt.SYSCALL.ordinal()] = new SysCallInterruptHandler();
     interruptList[Interrupt.TIMER.ordinal()] = new TimerHandler();
     MyCores = aiso.sim.Configuration.cpuCores;
-    scheduler = new MyScheduler(MyCores);
+    //scheduler = new MyScheduler(MyCores);
+    scheduler = aiso.sim.Configuration.scheduler;
     terminal = new Console();
 
 
