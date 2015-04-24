@@ -12,7 +12,10 @@ public class IOSyscallHandler implements SysCallHandler {
   public void handle(CPUCore core) {//para fazer io tirar processo do core e por no driver
     //retirar processo que esta atalmente no core (e tratar de por la o proximo se existir)
     //colocar esse processo no driver do device ( OperatingSystem.getInstance().getDriver("Placa de rede").addPCB(pcb); )
-    Context re = (Context) core.getContext();
+    Context re = core.getContext();
+    core.load(null);
+    if(OperatingSystem.getInstance().getScheduler().hasNext())
+      OperatingSystem.getInstance().getScheduler().schedule(OperatingSystem.getInstance().getScheduler().next());
     OperatingSystem.getInstance().getDriver("Placa de rede").addPCB(new MyPCB(re));
   }
 }

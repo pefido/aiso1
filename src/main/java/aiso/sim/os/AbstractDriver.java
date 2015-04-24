@@ -45,6 +45,10 @@ public class AbstractDriver {
     return currentPCB;
   }
   
+  public String getDescrition(){
+    return deviceDescription;
+  }
+  
   /*public MyPCB dequeue(){
     MyPCB tmp = null;
     if(!blocked.isEmpty())

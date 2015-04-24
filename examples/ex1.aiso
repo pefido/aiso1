@@ -1,2 +1,4 @@
 computation 1000
+syscall IO
+syscall YIELD
 syscall SOME_SYSCALL_0
