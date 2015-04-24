@@ -50,6 +50,7 @@ public class SimpleCPUCore extends CPUCore {
   @Override
   public synchronized void tick() {
     if (context != null) {
+      context.tickQuantum();
       if (instructionRunningTime == 0) {
         try {
           // Fetch

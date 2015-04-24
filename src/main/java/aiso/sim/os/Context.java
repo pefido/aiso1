@@ -35,6 +35,7 @@ public class Context {
   private Stack<InstructionListIterator> stack = new Stack<InstructionListIterator>();
 
   private UUID processPID;
+  private int quantum;
 
   /**
    * Construct a context from a program
@@ -99,5 +100,17 @@ public class Context {
   public void setPID(UUID pid){
     processPID = pid;
   }
+  
+  public void setQuantum(int q) {
+	  quantum = q;
+  }
+  
+  public void tickQuantum() {
+	  quantum--;
+  }
+  
+  public int getQuantum() {
+	  return quantum;
+  } 
 
 }
