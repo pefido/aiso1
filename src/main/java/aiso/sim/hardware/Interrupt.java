@@ -9,8 +9,8 @@ package aiso.sim.hardware;
 public enum Interrupt {
 
 	SYSCALL,  // System call
-	TIMER; // Timer
-	
+	TIMER, // Timer
+	IO; // interrupt de input
 	
 	/**
 	 * The number of supported interrupts

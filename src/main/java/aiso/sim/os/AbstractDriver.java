@@ -12,6 +12,17 @@ public class AbstractDriver {
     deviceDescription = description;
     blocked = new ConcurrentLinkedQueue<MyPCB>();
   }
+  
+  public void addPCB(MyPCB pcb){
+    blocked.add(pcb);
+  }
+  
+  public MyPCB dequeue(){
+    MyPCB tmp = null;
+    if(!blocked.isEmpty())
+      tmp = blocked.remove();
+    return tmp;
+  }
 
   public void sendData(){
     
