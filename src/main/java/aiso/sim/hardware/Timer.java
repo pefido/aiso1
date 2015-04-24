@@ -8,7 +8,12 @@ public class Timer extends Interrupter implements Clockable {
   /**
    * tempo definido para o timer lançar um interrupt(em ticks)
    */
-  private static final int TIMER_TIME = 1000000000;
+  private static final int TIMER_TIME = 100000000;
+  
+  /**
+   * contador do timer
+   */
+  private int timer;
   
   /**
    * core ao qual este timer está atribuido
@@ -17,19 +22,17 @@ public class Timer extends Interrupter implements Clockable {
   
   public Timer(SimpleCPUCore core){
     this.core = core;
+    timer = TIMER_TIME;
   }
 
   @Override
   public void tick() {
-    int timer = TIMER_TIME;
-    while(true){
       if(timer == 1){
         //lancar interrupt
         core.handleInterrupt(Interrupt.TIMER);
         timer = TIMER_TIME;
       }
       timer--;
-    }
   }
 
   @Override

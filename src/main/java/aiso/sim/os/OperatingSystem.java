@@ -50,5 +50,7 @@ public abstract class OperatingSystem {
   public  abstract InterruptHandler[] getInterruptVector();
 
   public abstract MySchedulerAlg getScheduler();
+  
+  public abstract AbstractDriver getDriver(String device);
 
 }
