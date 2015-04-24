@@ -41,9 +41,10 @@ public class MySchedulerMFQ implements MySchedulerAlg{
 	public MyPCB next() {
 		int core = 0;
 		//iterar pelas queues
-		for (Queue<MyPCB> queue : qList) {
-			if (!queue.isEmpty()) {
-				return pQueue.remove();
+		for (int i = 0; i < NQUEUES; i++) {
+			Queue q = qList[i];
+			if (!q.isEmpty()) {
+				return (MyPCB) q.remove();
 			}
 		}
 		return null; // BLÉH
@@ -51,8 +52,9 @@ public class MySchedulerMFQ implements MySchedulerAlg{
 
 	@Override
 	public boolean hasNext() {
-		for (Queue<MyPCB> queue : qList) {
-			if (!queue.isEmpty()) {
+		for (int i = 0; i < NQUEUES; i++) {
+			Queue q = qList[i];
+			if (!q.isEmpty()) {
 				return true;
 			}
 		}

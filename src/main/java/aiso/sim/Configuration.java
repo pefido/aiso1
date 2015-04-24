@@ -47,8 +47,8 @@ public class Configuration {
    *  The scheduler
    */
   //NO FINAL É ISTO QUE TEM DE DAR!!!
-  //public static final MySchedulerAlg scheduler = new MySchedulerMFQ(cpuCores) ;
-  public static final MyScheduler scheduler = new MyScheduler(cpuCores) ;
+  public static final MySchedulerAlg scheduler = new MySchedulerMFQ(cpuCores) ;
+  //public static final MyScheduler scheduler = new MyScheduler(cpuCores) ;
 
   
 

@@ -21,6 +21,9 @@ public class LoadSysCallHandler implements SysCallHandler {
       Parser myParser = new Parser(ficheiro);
       Program myProgram = myParser.Program();
       OperatingSystem.getInstance().getScheduler().schedule(new MyPCB(new Context(myProgram)));
+      if (core.getContext() == null) {
+    	  core.load(OperatingSystem.getInstance().getScheduler().next().getContext());
+      }
 
     } catch (InvalidRegisterException e) {
       // TODO Auto-generated catch block
