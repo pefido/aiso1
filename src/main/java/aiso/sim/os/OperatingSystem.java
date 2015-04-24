@@ -50,7 +50,12 @@ public abstract class OperatingSystem {
   public  abstract InterruptHandler[] getInterruptVector();
 
   public abstract MySchedulerAlg getScheduler();
+  public abstract MyStats getStats();
   
   public abstract AbstractDriver getDriver(String device);
+  
+  public abstract MyPCB getCPUJob();
+  
+  public abstract void setCPUJob(MyPCB job);
 
 }

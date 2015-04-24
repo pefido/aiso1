@@ -21,6 +21,8 @@ public class MyOS extends OperatingSystem{
   protected CPUCore MyCPU;
   protected CPUCore[] MyCores;
   public Map<String, AbstractDriver> drivers;
+  public MyStats stats;
+  private MyPCB[] CPUJob;
 
   @Override
   public void load() {
@@ -38,6 +40,7 @@ public class MyOS extends OperatingSystem{
     interruptList[Interrupt.IO.ordinal()] = new IHandler();
     drivers = new HashMap<String, AbstractDriver>();
     MyCores = aiso.sim.Configuration.cpuCores;
+    CPUJob = new MyPCB[] {null};
     scheduler = aiso.sim.Configuration.scheduler;
 
     for(int i=0; i<Configuration.devices.length; i++){
@@ -46,10 +49,12 @@ public class MyOS extends OperatingSystem{
     }
 
     terminal = new Console();
+    stats = new MyStats();
 
 
     //3: lancar execucao da consola
     terminal.run();
+    
   }
 
   @Override
@@ -61,9 +66,27 @@ public class MyOS extends OperatingSystem{
   public MySchedulerAlg getScheduler(){
     return scheduler;
   }
-  
+
+   public MyStats getStats(){
+    return stats;
+  } 
+
   public AbstractDriver getDriver(String device){
     return drivers.get(device);
+  }
+  
+  /**
+   * @return o pcb cujo contexto está atualmente a correr no core
+   */
+  public MyPCB getCPUJob(){
+    return CPUJob[0];
+  }
+  
+  /**
+   * @param job o pcb cujo contexto vai para o core
+   */
+  public void setCPUJob(MyPCB job){
+    CPUJob[0] = job;
   }
 
 }

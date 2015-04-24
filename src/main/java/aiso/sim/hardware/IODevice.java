@@ -4,14 +4,14 @@ import aiso.sim.os.Logger;
 import aiso.sim.os.MyPCB;
 import aiso.sim.os.OperatingSystem;
 
-public class PlacaRede implements Clockable{
+public class IODevice implements Clockable{
 
 
-  private static final int OP_TICKS = 10000000;
+  private static final int OP_TICKS = 99999999;
 
   private int timer;
 
-  public PlacaRede(){
+  public IODevice(){
     timer = 0;
   }
 
@@ -20,7 +20,7 @@ public class PlacaRede implements Clockable{
       if(timer > 0){
         timer--;
         if(timer == 0){
-          OperatingSystem.getInstance().getDriver("Placa de rede").removePCB();
+          OperatingSystem.getInstance().getDriver("IODevice").removePCB();
         }
       }
   }
@@ -32,7 +32,7 @@ public class PlacaRede implements Clockable{
 
   @Override
   public String getDescription() {
-    return "Placa de rede";
+    return "IODevice";
   }
 
 }
