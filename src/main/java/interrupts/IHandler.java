@@ -12,7 +12,10 @@ public class IHandler implements InterruptHandler{
 
   @Override
   public void handle(CPUCore core) throws Exception {
+    System.out.println("interrupt IO");
     OperatingSystem.getInstance().getScheduler().schedule(OperatingSystem.getInstance().getDriver("Placa de rede").getCurrentPCB());
+    if(core.getContext() == null)
+      core.load(OperatingSystem.getInstance().getScheduler().next().getContext());
   }
 
 }

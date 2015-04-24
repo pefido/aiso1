@@ -19,7 +19,7 @@ public class TimerHandler implements InterruptHandler{
       scheduler.schedule(new MyPCB(re));
       core.load(scheduler.next().getContext());
     }
-    Logger.info("Timer interrupt");
+    //Logger.info("Timer interrupt");
   }
 
 }
