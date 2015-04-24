@@ -11,6 +11,7 @@ import aiso.sim.instructions.SysCall;
 import aiso.sim.os.MyScheduler;
 import aiso.sim.os.MySchedulerAlg;
 import aiso.sim.os.MySchedulerMFQ;
+import aiso.sim.os.MyStats;
 import aiso.sim.os.OperatingSystem;
 import aiso.sim.os.MyOS;;
 
@@ -46,9 +47,12 @@ public class Configuration {
   /**
    *  The scheduler
    */
-  //NO FINAL É ISTO QUE TEM DE DAR!!!
   public static final MySchedulerAlg scheduler = new MySchedulerMFQ(cpuCores) ;
-  //public static final MyScheduler scheduler = new MyScheduler(cpuCores) ;
+ 
+  /**
+   * Statistics
+   */
+  public static final MyStats stats = new MyStats();
 
   
 

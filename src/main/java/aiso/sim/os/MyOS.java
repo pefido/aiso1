@@ -21,6 +21,7 @@ public class MyOS extends OperatingSystem{
   protected CPUCore MyCPU;
   protected CPUCore[] MyCores;
   public Map<String, AbstractDriver> drivers;
+  public MyStats stats;
 
   @Override
   public void load() {
@@ -46,10 +47,12 @@ public class MyOS extends OperatingSystem{
     }
 
     terminal = new Console();
+    stats = new MyStats();
 
 
     //3: lancar execucao da consola
     terminal.run();
+    
   }
 
   @Override
@@ -61,7 +64,11 @@ public class MyOS extends OperatingSystem{
   public MySchedulerAlg getScheduler(){
     return scheduler;
   }
-  
+
+   public MyStats getStats(){
+    return stats;
+  } 
+
   public AbstractDriver getDriver(String device){
     return drivers.get(device);
   }

@@ -41,7 +41,7 @@ public class SimpleCPUCore extends CPUCore {
   public synchronized void load(Context context) {
     super.load(context);
     //TODO: ver isto
-    //instructionRunningTime = 0;
+    instructionRunningTime = 0;
   }
 
   /**
