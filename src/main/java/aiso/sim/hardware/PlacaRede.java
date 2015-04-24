@@ -7,7 +7,7 @@ import aiso.sim.os.OperatingSystem;
 public class PlacaRede implements Clockable{
 
 
-  private static final int OP_TICKS = 10000000;
+  private static final int OP_TICKS = 99999999;
 
   private int timer;
 

@@ -32,7 +32,7 @@ public class AbstractDriver {
   }
   
   public void removePCB(){
-    OperatingSystem.getInstance().getScheduler().schedule(currentPCB);
+    //OperatingSystem.getInstance().getScheduler().schedule(currentPCB);
     Configuration.cpuCores[0].handleInterrupt(Interrupt.IO);
     currentPCB = null;
     if(!blocked.isEmpty()){

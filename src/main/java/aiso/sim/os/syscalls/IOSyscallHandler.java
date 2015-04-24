@@ -15,7 +15,7 @@ public class IOSyscallHandler implements SysCallHandler {
     Context re = core.getContext();
     core.load(null);
     if(OperatingSystem.getInstance().getScheduler().hasNext())
-      OperatingSystem.getInstance().getScheduler().schedule(OperatingSystem.getInstance().getScheduler().next());
+      core.load(OperatingSystem.getInstance().getScheduler().next().getContext());
     OperatingSystem.getInstance().getDriver("Placa de rede").addPCB(new MyPCB(re));
   }
 }
