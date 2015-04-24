@@ -11,6 +11,7 @@ public class MySchedulerMFQ implements MySchedulerAlg{
 	public static final int NQUEUES = 4;
 	private Queue<MyPCB> pQueue;
 	private Queue[] qList;
+  private MyPCB[] CPUJob;
 
 	public MySchedulerMFQ(CPUCore[] cores){
 
@@ -21,10 +22,15 @@ public class MySchedulerMFQ implements MySchedulerAlg{
 		}
 
 		pQueue = new ConcurrentLinkedQueue<MyPCB>();//lista thread safe
+    CPUJob = new MyPCB[] {null, null, null};
 	}
 
 	@Override
 	public void schedule(MyPCB process) {
+	  // Se o processo era o que estava a correr no CPU, baixa-lhe a prioridade
+	  if (CPUJob[0] != null && process.getPID() == CPUJob[0].getPID()) {
+	    System.out.println("SENTA CABRAO");
+	  }
 		// Saber para qual das queues vai o processo
 		// Como ainda não sei como fazer isso, vai random :D
 		int fila = (int) (Math.random() * NQUEUES);
@@ -44,7 +50,9 @@ public class MySchedulerMFQ implements MySchedulerAlg{
 		for (int i = 0; i < NQUEUES; i++) {
 			Queue q = qList[i];
 			if (!q.isEmpty()) {
-				return (MyPCB) q.remove();
+			  MyPCB res = (MyPCB) q.remove();
+				CPUJob[0] = res;
+				return res;
 			}
 		}
 		return null; // BLÉH
