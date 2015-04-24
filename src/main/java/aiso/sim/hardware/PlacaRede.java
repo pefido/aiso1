@@ -7,20 +7,27 @@ import aiso.sim.os.OperatingSystem;
 public class PlacaRede implements Clockable{
 
 
-  private static final int TIMER_TIME = Integer.MAX_VALUE;
+  private static final int OP_TICKS = 10000000;
 
-  private MyPCB currentPCB;
-  
+  private int timer;
+
   public PlacaRede(){
-    currentPCB = null;
+    timer = 0;
   }
 
   @Override
   public void tick() {
-    currentPCB = OperatingSystem.getInstance().getDriver("Placa de rede").dequeue();
-    if(currentPCB != null){
-      //do operation with x ticks
-    }
+      if(timer > 0){
+        timer--;
+        if(timer == 0){
+          OperatingSystem.getInstance().getDriver("Placa de rede").removePCB();
+        }
+      }
+  }
+
+  
+  public void doOperation(){
+    timer = OP_TICKS;
   }
 
   @Override

@@ -42,7 +42,7 @@ public class MyOS extends OperatingSystem{
 
     for(int i=0; i<Configuration.devices.length; i++){
       if(!Configuration.devices[i].getDescription().equals("Timer"))// criar drivers para todos os devices menos o timer
-        drivers.put(Configuration.devices[i].getDescription(), new AbstractDriver(Configuration.devices[i].getDescription()));
+        drivers.put(Configuration.devices[i].getDescription(), new AbstractDriver(Configuration.devices[i].getDescription(), Configuration.devices[i]));
     }
 
     terminal = new Console();
