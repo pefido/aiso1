@@ -17,7 +17,7 @@ import aiso.sim.os.SysCallInterruptHandler;
 public class MyOS extends OperatingSystem{
 
   protected InterruptHandler[] interruptList;
-  protected MyScheduler scheduler;
+  protected MySchedulerAlg scheduler;
   protected CPUCore MyCPU;
   protected CPUCore[] MyCores;
   public Map<String, AbstractDriver> drivers;
@@ -38,11 +38,13 @@ public class MyOS extends OperatingSystem{
     interruptList[Interrupt.IO.ordinal()] = new IHandler();
     drivers = new HashMap<String, AbstractDriver>();
     MyCores = aiso.sim.Configuration.cpuCores;
+    scheduler = aiso.sim.Configuration.scheduler;
+
     for(int i=0; i<Configuration.devices.length; i++){
       if(!Configuration.devices[i].getDescription().equals("Timer"))// criar drivers para todos os devices menos o timer
         drivers.put(Configuration.devices[i].getDescription(), new AbstractDriver(Configuration.devices[i].getDescription()));
     }
-    scheduler = new MyScheduler(MyCores);
+
     terminal = new Console();
 
 
@@ -56,7 +58,7 @@ public class MyOS extends OperatingSystem{
     return interruptList;
   }
 
-  public MyScheduler getScheduler(){
+  public MySchedulerAlg getScheduler(){
     return scheduler;
   }
   

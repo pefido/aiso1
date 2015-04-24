@@ -6,13 +6,18 @@ public class MyPCB {
 
   private Context myContext;
   private UUID PID;
+  private int quantum;
 
   public MyPCB(Context context){
     myContext = context;
     PID = UUID.randomUUID();
     myContext.setPID(PID);
   }
-
+  
+  public void setQuantum(int q) {
+	 myContext.setQuantum(q);
+  }
+  
   public UUID getPID(){
     return PID;
   }

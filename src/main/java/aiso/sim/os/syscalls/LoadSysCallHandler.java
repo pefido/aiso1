@@ -20,7 +20,10 @@ public class LoadSysCallHandler implements SysCallHandler {
       InputStream ficheiro = new FileInputStream(core.getRegister(1).toString());
       Parser myParser = new Parser(ficheiro);
       Program myProgram = myParser.Program();
-      OperatingSystem.getInstance().getScheduler().enqueue(new MyPCB(new Context(myProgram)));
+      OperatingSystem.getInstance().getScheduler().schedule(new MyPCB(new Context(myProgram)));
+      if (core.getContext() == null) {
+    	  core.load(OperatingSystem.getInstance().getScheduler().next().getContext());
+      }
 
     } catch (InvalidRegisterException e) {
       // TODO Auto-generated catch block
