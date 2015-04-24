@@ -9,6 +9,7 @@ import aiso.sim.hardware.CPUCore;
 import aiso.sim.hardware.InvalidRegisterException;
 import aiso.sim.os.Context;
 import aiso.sim.os.MyPCB;
+import aiso.sim.os.MyStats;
 import aiso.sim.os.OperatingSystem;
 import aiso.sim.parser.ParseException;
 import aiso.sim.parser.Parser;
@@ -16,13 +17,17 @@ import aiso.sim.parser.Parser;
 public class LoadSysCallHandler implements SysCallHandler {
 
   public void handle(CPUCore core) {
+    MyStats stats = OperatingSystem.getInstance().getStats();
     try {
       InputStream ficheiro = new FileInputStream(core.getRegister(1).toString());
       Parser myParser = new Parser(ficheiro);
       Program myProgram = myParser.Program();
       OperatingSystem.getInstance().getScheduler().schedule(new MyPCB(new Context(myProgram)));
       if (core.getContext() == null) {
-    	  core.load(OperatingSystem.getInstance().getScheduler().next().getContext());
+        stats.plusCPU();
+        MyPCB next = OperatingSystem.getInstance().getScheduler().next();
+        stats.trace(next.getContext().getPID(), "LOAD");
+    	  core.load(next.getContext());
       }
 
     } catch (InvalidRegisterException e) {

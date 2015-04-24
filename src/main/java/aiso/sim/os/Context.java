@@ -111,6 +111,10 @@ public class Context {
   
   public int getQuantum() {
 	  return quantum;
+  }
+
+  public UUID getPID() {
+    return processPID;
   } 
 
 }

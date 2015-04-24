@@ -2,6 +2,8 @@ package aiso.sim.console;
 
 import java.util.List;
 
+import aiso.sim.os.OperatingSystem;
+
 
 /**
  * Implementation of the "exec" command
@@ -16,7 +18,8 @@ public class ResetStatsCommand extends ConsoleCommand {
 	 */
 	@Override
 	public void run(List<String> arguments) {
-		Console.out.println("Not implemented");
+    OperatingSystem.getInstance().getStats().reset();
+		Console.out.println("Stats reseted");
 	}
 
 	@Override
