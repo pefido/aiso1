@@ -53,5 +53,9 @@ public abstract class OperatingSystem {
   public abstract MyStats getStats();
   
   public abstract AbstractDriver getDriver(String device);
+  
+  public abstract MyPCB getCPUJob();
+  
+  public abstract void setCPUJob(MyPCB job);
 
 }

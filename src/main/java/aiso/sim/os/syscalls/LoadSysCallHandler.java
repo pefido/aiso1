@@ -8,6 +8,7 @@ import aiso.sim.Program;
 import aiso.sim.hardware.CPUCore;
 import aiso.sim.hardware.InvalidRegisterException;
 import aiso.sim.os.Context;
+import aiso.sim.os.MyOS;
 import aiso.sim.os.MyPCB;
 import aiso.sim.os.MyStats;
 import aiso.sim.os.OperatingSystem;
@@ -27,6 +28,8 @@ public class LoadSysCallHandler implements SysCallHandler {
         stats.plusCPU();
         MyPCB next = OperatingSystem.getInstance().getScheduler().next();
         stats.trace(next.getContext().getPID(), "LOAD");
+        MyOS.getInstance().setCPUJob(next);
+        System.out.println(next.getPID().toString());
     	  core.load(next.getContext());
       }
 

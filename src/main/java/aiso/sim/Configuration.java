@@ -67,7 +67,7 @@ public class Configuration {
   public static final Clockable[] devices = new Clockable[]{
     // Fill with hardware components
     new aiso.sim.hardware.Timer((SimpleCPUCore)cpuCores[0]),//o timer pertence ao unico processador que existe
-    new aiso.sim.hardware.PlacaRede()
+    new aiso.sim.hardware.IODevice()
   };
 
 
