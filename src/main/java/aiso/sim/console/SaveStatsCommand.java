@@ -2,8 +2,10 @@ package aiso.sim.console;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Iterator;
 import java.util.List;
 
+import aiso.sim.os.MyStats;
 import aiso.sim.os.OperatingSystem;
 
 
@@ -24,12 +26,21 @@ public class SaveStatsCommand extends ConsoleCommand {
     for (String fileName: arguments) {
       naem = fileName;
     };
-    String megaStats = OperatingSystem.getInstance().getStats().Publish();
+    MyStats st = OperatingSystem.getInstance().getStats();
+    String megaStats = st.Publish();
     //Manda pra ficheiro
     PrintWriter out;
     try {
       out = new PrintWriter(naem);
       out.println(megaStats);
+      out.println();
+      out.println("-----TRACe-----");
+      out.println("PID | EVENT");
+      //ITERADOR
+      Iterator<String> iterator = st.getTrace();
+      while (iterator.hasNext()) {
+        out.println(iterator.next());
+      }
       out.close();
       Console.out.println("Stats saved");
     } catch (FileNotFoundException e) {

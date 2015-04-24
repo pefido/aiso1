@@ -25,7 +25,9 @@ public class LoadSysCallHandler implements SysCallHandler {
       OperatingSystem.getInstance().getScheduler().schedule(new MyPCB(new Context(myProgram)));
       if (core.getContext() == null) {
         stats.plusCPU();
-    	  core.load(OperatingSystem.getInstance().getScheduler().next().getContext());
+        MyPCB next = OperatingSystem.getInstance().getScheduler().next();
+        stats.trace(next.getContext().getPID(), "LOAD");
+    	  core.load(next.getContext());
       }
 
     } catch (InvalidRegisterException e) {
