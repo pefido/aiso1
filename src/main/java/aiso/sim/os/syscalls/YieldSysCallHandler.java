@@ -12,11 +12,11 @@ public class YieldSysCallHandler implements SysCallHandler{
   public void handle(CPUCore core) {
 	MySchedulerAlg scheduler = OperatingSystem.getInstance().getScheduler();
     Context re = (Context) core.getContext();
-    MyPCB tmp = MyOS.getInstance().getCPUJob();
+    MyPCB tmp = MyOS.getInstance().getCPUJob(core);
     tmp.setContext(re);
     scheduler.schedule(tmp);
     MyPCB tmp2 = scheduler.next();
-    MyOS.getInstance().setCPUJob(tmp2);
+    MyOS.getInstance().setCPUJob(tmp2, core);
     core.load(tmp2.getContext());
   }
 

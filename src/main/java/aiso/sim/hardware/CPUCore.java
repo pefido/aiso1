@@ -75,6 +75,4 @@ public abstract class CPUCore implements Clockable {
   public abstract <T> T getRegister(int number)  throws InvalidRegisterException;
 
 
-
-
 }

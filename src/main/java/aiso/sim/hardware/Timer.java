@@ -8,7 +8,7 @@ public class Timer extends Interrupter implements Clockable {
   /**
    * tempo definido para o timer lançar um interrupt(em ticks)
    */
-  private static final int TIMER_TIME = 100000000;
+  private static final int TIMER_TIME = 10000;
   
   /**
    * contador do timer

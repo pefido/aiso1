@@ -18,7 +18,7 @@ public class IHandler implements InterruptHandler{
     OperatingSystem.getInstance().getScheduler().schedule(OperatingSystem.getInstance().getDriver("IODevice").getCurrentPCB());
     if(core.getContext() == null){
       MyPCB tmp = MyOS.getInstance().getScheduler().next();
-      MyOS.getInstance().setCPUJob(tmp);
+      MyOS.getInstance().setCPUJob(tmp, core);
       core.load(tmp.getContext());
     }
   }

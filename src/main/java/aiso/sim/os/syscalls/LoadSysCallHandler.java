@@ -27,9 +27,8 @@ public class LoadSysCallHandler implements SysCallHandler {
       if (core.getContext() == null) {
         stats.plusCPU();
         MyPCB next = OperatingSystem.getInstance().getScheduler().next();
-        stats.trace(next.getContext().getPID(), "LOAD");
-        MyOS.getInstance().setCPUJob(next);
-        System.out.println(next.getPID().toString());
+        stats.trace(next.getPID(), "LOAD");
+        MyOS.getInstance().setCPUJob(next, core);
     	  core.load(next.getContext());
       }
 

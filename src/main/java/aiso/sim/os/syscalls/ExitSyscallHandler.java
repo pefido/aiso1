@@ -12,13 +12,13 @@ public class ExitSyscallHandler implements SysCallHandler {
   public void handle(CPUCore core) {
     MyStats stats = OperatingSystem.getInstance().getStats();
     MySchedulerAlg scheduler = OperatingSystem.getInstance().getScheduler();
-    stats.trace(core.getContext().getPID(), "EXIT");
-    MyOS.getInstance().setCPUJob(null);
+    stats.trace(MyOS.getInstance().getCPUJob(core).getPID(), "EXIT");
+    MyOS.getInstance().setCPUJob(null, core);
     core.load(null);
     stats.stopCPU();
     if (scheduler.hasNext()) {
       MyPCB tmp = scheduler.next();
-      MyOS.getInstance().setCPUJob(tmp);
+      MyOS.getInstance().setCPUJob(tmp, core);
       core.load(tmp.getContext());
       stats.plusCPU();
     }

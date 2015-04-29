@@ -11,7 +11,6 @@ public class MyPCB {
   public MyPCB(Context context){
     myContext = context;
     PID = UUID.randomUUID();
-    myContext.setPID(PID);
   }
   
   public void setQuantum(int q) {

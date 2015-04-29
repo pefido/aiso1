@@ -34,7 +34,6 @@ public class Context {
    */
   private Stack<InstructionListIterator> stack = new Stack<InstructionListIterator>();
 
-  private UUID processPID;
   private int quantum;
 
   /**
@@ -92,29 +91,16 @@ public class Context {
     this.instructionList = this.stack.pop();
   }
 
-  
-  /**
-   * Atribuir este conexto a um processo(PCB)
-   * @param pid Pid do processo a que este contexto pertence
-   */
-  public void setPID(UUID pid){
-    processPID = pid;
-  }
-  
   public void setQuantum(int q) {
-	  quantum = q;
-  }
-  
-  public void tickQuantum() {
-	  quantum--;
-  }
-  
-  public int getQuantum() {
-	  return quantum;
+    quantum = q;
   }
 
-  public UUID getPID() {
-    return processPID;
-  } 
+  public void tickQuantum() {
+    quantum--;
+  }
+
+  public int getQuantum() {
+    return quantum;
+  }
 
 }
