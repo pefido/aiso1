@@ -3,6 +3,7 @@ package aiso.sim;
 import aiso.sim.hardware.AbstractInterruptController;
 import aiso.sim.hardware.CPUCore;
 import aiso.sim.hardware.Clockable;
+import aiso.sim.hardware.RAM;
 import aiso.sim.hardware.SimpleCPUCore;
 import aiso.sim.instructions.Computation;
 import aiso.sim.instructions.MemoryLoad;
@@ -15,6 +16,12 @@ import aiso.sim.os.OperatingSystem;
 import aiso.sim.os.MyOS;;
 
 public class Configuration {
+
+  //Units
+
+  public static final int KByte = 1024;
+  public static final int MByte = 1024 * KByte;
+  public static final int GByte = 1024 * MByte;
 
   // Hardware 
 
@@ -42,18 +49,22 @@ public class Configuration {
       }
     }
   };
-  
+
   /**
    *  The scheduler
    */
   public static final MySchedulerAlg scheduler = new MySchedulerMFQ(cpuCores) ;
- 
+
   /**
    * Statistics
    */
   public static final MyStats stats = new MyStats();
 
-  
+
+  /**
+   * Installed RAM
+   */
+  public static final RAM ram = new RAM(20 * MByte, 32);
 
   /**
    *  The class implementing the interrupt controller 
@@ -66,7 +77,8 @@ public class Configuration {
   public static final Clockable[] devices = new Clockable[]{
     // Fill with hardware components
     new aiso.sim.hardware.Timer((SimpleCPUCore)cpuCores[0]),//o timer pertence ao unico processador que existe
-    new aiso.sim.hardware.IODevice()
+    new aiso.sim.hardware.IODevice(),
+    ram
   };
 
 

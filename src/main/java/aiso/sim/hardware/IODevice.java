@@ -7,7 +7,7 @@ import aiso.sim.os.OperatingSystem;
 public class IODevice implements Clockable{
 
 
-  private static final int OP_TICKS = 99999999;
+  private static final int OP_TICKS = 999999;
 
   private int timer;
 

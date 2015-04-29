@@ -44,7 +44,7 @@ public class MyOS extends OperatingSystem{
     scheduler = aiso.sim.Configuration.scheduler;
 
     for(int i=0; i<Configuration.devices.length; i++){
-      if(!Configuration.devices[i].getDescription().equals("Timer"))// criar drivers para todos os devices menos o timer
+      if(!Configuration.devices[i].getDescription().equals("Timer") && !Configuration.devices[i].getDescription().contains("RAM"))// criar drivers para todos os devices menos o timer
         drivers.put(Configuration.devices[i].getDescription(), new AbstractDriver(Configuration.devices[i].getDescription(), Configuration.devices[i]));
     }
 

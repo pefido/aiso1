@@ -18,7 +18,9 @@ public abstract class BaseAISOTest {
 		return new Parser(new FileInputStream(testFolder + getAISOFileName()));
 	}
 	
-	protected abstract String getAISOFileName();
+	protected String getAISOFileName(){
+	  return testFolder + getAISOFileName();
+	}
 	
 	@Test
 	public abstract void test();
