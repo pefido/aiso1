@@ -1,6 +1,8 @@
 package aiso.sim.hardware;
 
 import aiso.sim.instructions.Instruction;
+import aiso.sim.os.MyOS;
+import aiso.sim.os.OperatingSystem;
 import aiso.sim.hardware.SimpleCPUCore;
 
 public class Timer extends Interrupter implements Clockable {

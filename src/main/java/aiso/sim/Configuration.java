@@ -13,7 +13,8 @@ import aiso.sim.os.MySchedulerAlg;
 import aiso.sim.os.MySchedulerMFQ;
 import aiso.sim.os.MyStats;
 import aiso.sim.os.OperatingSystem;
-import aiso.sim.os.MyOS;;
+import aiso.sim.os.MyOS;
+import aiso.sim.os.SimpleScheduler;
 
 public class Configuration {
 
@@ -53,7 +54,7 @@ public class Configuration {
   /**
    *  The scheduler
    */
-  public static final MySchedulerAlg scheduler = new MySchedulerMFQ(cpuCores) ;
+  public static final MySchedulerAlg scheduler = new SimpleScheduler() ;
 
   /**
    * Statistics
@@ -76,7 +77,7 @@ public class Configuration {
    */
   public static final Clockable[] devices = new Clockable[]{
     // Fill with hardware components
-    new aiso.sim.hardware.Timer((SimpleCPUCore)cpuCores[0]),//o timer pertence ao unico processador que existe
+    new aiso.sim.hardware.Timer((SimpleCPUCore)cpuCores[0]),
     new aiso.sim.hardware.IODevice(),
     ram
   };

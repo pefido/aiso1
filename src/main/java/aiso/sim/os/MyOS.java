@@ -34,17 +34,17 @@ public class MyOS extends OperatingSystem{
     }
 
     //2: inicializar estruturas de dados internas
-    interruptList = new InterruptHandler[20];
-    interruptList[Interrupt.SYSCALL.ordinal()] = new SysCallInterruptHandler();
-    interruptList[Interrupt.TIMER.ordinal()] = new TimerHandler();
-    interruptList[Interrupt.IO.ordinal()] = new IHandler();
-    drivers = new HashMap<String, AbstractDriver>();
     MyCores = aiso.sim.Configuration.cpuCores;
+    interruptList = new InterruptHandler[20];
+    interruptList[Interrupt.TIMER.ordinal()] = new TimerHandler();
+    interruptList[Interrupt.SYSCALL.ordinal()] = new SysCallInterruptHandler();
+    interruptList[Interrupt.IO.ordinal()] = new IHandler();
     CPUJob = new HashMap<CPUCore, MyPCB>();
     scheduler = aiso.sim.Configuration.scheduler;
+    drivers = new HashMap<String, AbstractDriver>();
 
     for(int i=0; i<Configuration.devices.length; i++){
-      if(!Configuration.devices[i].getDescription().equals("Timer") && !Configuration.devices[i].getDescription().contains("RAM"))// criar drivers para todos os devices menos o timer
+      if(!Configuration.devices[i].getDescription().equals("Timer") && !Configuration.devices[i].getDescription().contains("RAM"))// criar drivers para todos os devices menos o timer e ram
         drivers.put(Configuration.devices[i].getDescription(), new AbstractDriver(Configuration.devices[i].getDescription(), Configuration.devices[i]));
     }
 
