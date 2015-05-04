@@ -10,12 +10,14 @@ public class Timer extends Interrupter implements Clockable {
   /**
    * tempo definido para o timer lançar um interrupt(em ticks)
    */
-  private static final int TIMER_TIME = 10000;
+  private static final int TIMER_TIME = 5000;
   
   /**
    * contador do timer
    */
   private int timer;
+  
+  private boolean firstTime;
   
   /**
    * core ao qual este timer está atribuido
@@ -29,11 +31,14 @@ public class Timer extends Interrupter implements Clockable {
 
   @Override
   public void tick() {
+    if(firstTime){
+      timer = TIMER_TIME*2;
       if(timer == 1){
         //lancar interrupt
         core.handleInterrupt(Interrupt.TIMER);
         timer = TIMER_TIME;
       }
+  }
       timer--;
   }
 
