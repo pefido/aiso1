@@ -27,18 +27,20 @@ public class Timer extends Interrupter implements Clockable {
   public Timer(SimpleCPUCore core){
     this.core = core;
     timer = TIMER_TIME;
+    firstTime = true;
   }
 
   @Override
   public void tick() {
     if(firstTime){
       timer = TIMER_TIME*2;
+      firstTime = false;
+    }
       if(timer == 1){
         //lancar interrupt
         core.handleInterrupt(Interrupt.TIMER);
         timer = TIMER_TIME;
       }
-  }
       timer--;
   }
 
