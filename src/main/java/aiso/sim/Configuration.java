@@ -79,7 +79,8 @@ public class Configuration {
     // Fill with hardware components
     new aiso.sim.hardware.Timer((SimpleCPUCore)cpuCores[0]),
     new aiso.sim.hardware.IODevice(),
-    ram
+    ram,
+    new aiso.sim.hardware.MMU()
   };
 
 

@@ -35,6 +35,11 @@ public class SimpleCPUCore extends CPUCore {
    * The core's identifier
    */
   private final int identifier = IdentifierFactory.newIdentifier();
+  
+  /**
+   * TLB que pertence a este core
+   */
+  private TLB coreTLB = new TLB(this);
 
 
   @Override
@@ -110,6 +115,10 @@ public class SimpleCPUCore extends CPUCore {
   @Override 
   public String toString() {
     return getDescription();
+  }
+  
+  public TLB getTLB(){
+    return coreTLB;
   }
 
 }
