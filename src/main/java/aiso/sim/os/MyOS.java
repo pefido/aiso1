@@ -44,7 +44,7 @@ public class MyOS extends OperatingSystem{
     drivers = new HashMap<String, AbstractDriver>();
 
     for(int i=0; i<Configuration.devices.length; i++){
-      if(!Configuration.devices[i].getDescription().equals("Timer") && !Configuration.devices[i].getDescription().contains("RAM"))// criar drivers para todos os devices menos o timer e ram
+      if(!Configuration.devices[i].getDescription().equals("Timer") && !Configuration.devices[i].getDescription().contains("RAM") && !Configuration.devices[i].getDescription().equals("MMU"))// criar drivers para todos os devices menos o timer e ram
         drivers.put(Configuration.devices[i].getDescription(), new AbstractDriver(Configuration.devices[i].getDescription(), Configuration.devices[i]));
     }
 
