@@ -3,6 +3,7 @@ package aiso.sim;
 import aiso.sim.hardware.AbstractInterruptController;
 import aiso.sim.hardware.CPUCore;
 import aiso.sim.hardware.Clockable;
+import aiso.sim.hardware.MMU;
 import aiso.sim.hardware.RAM;
 import aiso.sim.hardware.SimpleCPUCore;
 import aiso.sim.instructions.Computation;
@@ -71,6 +72,8 @@ public class Configuration {
    *  The class implementing the interrupt controller 
    */
   public static final Class<AbstractInterruptController> interruptControlerClass = null;
+  
+  public static final MMU mmu = new MMU();
 
   /**
    * The computer's set of devices
@@ -79,8 +82,7 @@ public class Configuration {
     // Fill with hardware components
     new aiso.sim.hardware.Timer((SimpleCPUCore)cpuCores[0]),
     new aiso.sim.hardware.IODevice(),
-    ram,
-    new aiso.sim.hardware.MMU()
+    ram
   };
 
 

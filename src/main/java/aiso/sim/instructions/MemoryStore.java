@@ -1,6 +1,10 @@
 package aiso.sim.instructions;
 
 import aiso.sim.hardware.CPUCore;
+import aiso.sim.hardware.Interrupt;
+import aiso.sim.hardware.InvalidRegisterException;
+import aiso.sim.os.MyOS;
+import aiso.sim.os.syscalls.SysCallNumber;
 
 /**
  * Class representing a memory store instruction
@@ -19,8 +23,10 @@ public class MemoryStore extends MemoryAccess {
 	}
 	
 	@Override
-	public void run (CPUCore cpuCore) {
-		System.out.println(this);
+	public void run (CPUCore cpuCore) throws InvalidRegisterException {
+	  int[] tmp = {(int)address};
+	  new SysCall(SysCallNumber.STORE, tmp).run(cpuCore);
+	  System.out.println(this);
 	}
 	
 	@Override

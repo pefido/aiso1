@@ -14,7 +14,9 @@ public enum SysCallNumber {
 	LOAD_PROGRAM,	// Load program 
 	EXIT,			// Terminate the execution of the current process	
 	YIELD,
-	IO;//syscall para fazer io
+	IO,//syscall para fazer io
+	STORE,//escrever em memoria
+	LOAD;//ler da memoria
 	
 	
 	/**

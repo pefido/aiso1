@@ -50,7 +50,21 @@ public class MMU implements Clockable{
   }
   
   public void load(int page){
-    
+    if(valid[page] == true){
+      //ir buscar frame da memoria
+    }
+    else{//não tá em memoria
+      if(!freeMem.isEmpty()){//se existir memoria livre
+        int alocFrame = freeMem.get(0);
+        freeMem.remove(0);
+        pageToFrame[page] = alocFrame;
+        valid[page] = true;
+        //voltar a executar a instrucao
+      }
+      else{
+        //usar algoritmo para libertar memoria
+      }
+    }
   }
 
   @Override
