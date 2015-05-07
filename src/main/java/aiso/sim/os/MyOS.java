@@ -1,5 +1,6 @@
 package aiso.sim.os;
 import interrupts.IHandler;
+import interrupts.MemStoreHandler;
 import interrupts.TimerHandler;
 
 import java.util.HashMap;
@@ -39,6 +40,7 @@ public class MyOS extends OperatingSystem{
     interruptList[Interrupt.TIMER.ordinal()] = new TimerHandler();
     interruptList[Interrupt.SYSCALL.ordinal()] = new SysCallInterruptHandler();
     interruptList[Interrupt.IO.ordinal()] = new IHandler();
+    interruptList[Interrupt.STORE.ordinal()] = new MemStoreHandler();
     CPUJob = new HashMap<CPUCore, MyPCB>();
     scheduler = aiso.sim.Configuration.scheduler;
     drivers = new HashMap<String, AbstractDriver>();

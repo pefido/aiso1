@@ -24,9 +24,9 @@ public class MemoryStore extends MemoryAccess {
 	
 	@Override
 	public void run (CPUCore cpuCore) throws InvalidRegisterException {
-	  int[] tmp = {(int)address};
-	  new SysCall(SysCallNumber.STORE, tmp).run(cpuCore);
 	  System.out.println(this);
+	  cpuCore.setRegisters(0, address);
+    cpuCore.handleInterrupt(Interrupt.STORE);
 	}
 	
 	@Override

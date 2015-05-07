@@ -10,7 +10,9 @@ public enum Interrupt {
 
 	SYSCALL,  // System call
 	TIMER, // Timer
-	IO; // interrupt de input
+	IO, // interrupt de input
+	STORE,
+	LOAD;
 	
 	/**
 	 * The number of supported interrupts

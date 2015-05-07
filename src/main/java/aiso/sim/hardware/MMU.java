@@ -37,13 +37,14 @@ public class MMU implements Clockable{
     return result;
   }
   
-  public boolean store(int page){
+  public boolean store(long page){
     boolean result = false;
     if(!freeMem.isEmpty()){
     int alocFrame = freeMem.get(0);
     freeMem.remove(0);
-    pageToFrame[page] = alocFrame;
-    valid[page] = true;
+    pageToFrame[(int) page] = alocFrame;
+    valid[(int) page] = true;
+    System.out.println("maloc frame " + alocFrame + " for page " + page);
     result = true;
     }
     return result;
