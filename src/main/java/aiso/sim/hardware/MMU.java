@@ -62,6 +62,7 @@ public class MMU implements Clockable{
     memFrames.remove(0);
     pageToFrame[(int) page] = alocFrame;
     if(frameToPage[alocFrame] != -1){//se a memoria tava a ser utilizada, guardar em disco e invalidar o bit valid
+      stats.discWrite();
       valid[frameToPage[alocFrame]] = false;
     }
     frameToPage[alocFrame] = (int)page;
@@ -85,6 +86,7 @@ public class MMU implements Clockable{
       System.out.println("page " + page + " loaded from frame " + pageToFrame[(int)page]);
     }
     else{//não tá em memoria
+      stats.pageFault();
       //if(!freeMem.isEmpty()){//se existir memoria livre
         int alocFrame = memFrames.get(0);
         if(frameToPage[alocFrame] != -1){

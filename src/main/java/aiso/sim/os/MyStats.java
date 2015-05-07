@@ -23,6 +23,14 @@ public class MyStats {
    pagdiff.put(page, true);
   }
 
+  public void pageFault() {
+    pagfalt++;
+  }
+  
+  public void discWrite() {
+   pagwrite++; 
+  }
+
   //Estatisticas do trabalho 2
   long initTime;
   long CPUTime, auxCPU;
@@ -78,6 +86,8 @@ public class MyStats {
     pagfalt = 0;
     pagwrite = 0;
   }
+
+
 
   
   
