@@ -15,21 +15,26 @@ public class MMU implements Clockable{
   public static int PAGESIZE = 4096;
   
   public static int TABLESIZE = (int)(aiso.sim.Configuration.ram.capacity/PAGESIZE);
+  public static int ADRESSES = 1048576;
 
   //public Map<Integer, Integer> pageTable;
-  public long[] pageToFrame;
+  public int[] pageToFrame;
+  public int[] frameToPage;
   public boolean[] valid;
-  public List<Integer> freeMem;
+  public List<Integer> memFrames;
   
   public MMU(){
-    pageToFrame = new long[(int)aiso.sim.Configuration.ram.capacity];
-    valid = new boolean[(int)aiso.sim.Configuration.ram.capacity];
-    freeMem = new LinkedList<Integer>();
+    pageToFrame = new int[ADRESSES];
+    frameToPage = new int[TABLESIZE];
+    valid = new boolean[ADRESSES];
+    memFrames = new LinkedList<Integer>();
     for(boolean a: valid)
       a = false;
+    for(long b: frameToPage)
+      b = -1;
     
     for(int i = 0; i < TABLESIZE; i++){
-      freeMem.add(i);
+      memFrames.add(i);
     }
   }
   
@@ -40,18 +45,23 @@ public class MMU implements Clockable{
     return result;
   }
   
-  public boolean store(long page){
-    boolean result = false;
-    if(!freeMem.isEmpty()){
-    int alocFrame = freeMem.get(0);
-    freeMem.remove(0);
+  public void store(long page){
+    //boolean result = false;
+    //if(!freeMem.isEmpty()){
+    int alocFrame = memFrames.get(0);
+    memFrames.remove(0);
     pageToFrame[(int) page] = alocFrame;
-    valid[(int) page] = true;
-    System.out.println("maloc frame " + alocFrame + " for page " + page);
-    result = true;
+    if(frameToPage[alocFrame] != -1){//se a memoria tava a ser utilizada, guardar em disco e invalidar o bit valid
+      valid[frameToPage[alocFrame]] = false;
     }
-    else System.out.println("mem full!!!");
-    return result;
+    frameToPage[alocFrame] = (int)page;
+    valid[(int) page] = true;
+    memFrames.add(alocFrame);
+    System.out.println("maloc frame " + alocFrame + " for page " + page);
+    //result = true;
+    //}
+    //else System.out.println("mem full!!!");
+    //return result;
   }
   
   public void load(long page) throws Exception{
@@ -60,19 +70,23 @@ public class MMU implements Clockable{
       System.out.println("page " + page + " loaded from frame " + pageToFrame[(int)page]);
     }
     else{//não tá em memoria
-      if(!freeMem.isEmpty()){//se existir memoria livre
-        int alocFrame = freeMem.get(0);
-        freeMem.remove(0);
+      //if(!freeMem.isEmpty()){//se existir memoria livre
+        int alocFrame = memFrames.get(0);
+        if(frameToPage[alocFrame] != -1){
+          valid[frameToPage[alocFrame]] = false;
+        }
+        memFrames.remove(0);
         pageToFrame[(int) page] = alocFrame;
         valid[(int) page] = true;
         System.out.println("maloc frame " + alocFrame + " for page " + page);
+        memFrames.add(alocFrame);
         //voltar a executar a instrucao
         this.load(page);
-      }
+      /*}
       else{
         //usar algoritmo para libertar memoria
         System.out.println("mem full!!!");
-      }
+      }*/
     }
   }
 
