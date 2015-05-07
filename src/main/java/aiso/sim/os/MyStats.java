@@ -2,11 +2,28 @@ package aiso.sim.os;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.UUID;
 
 public class MyStats {
+
+  //Estatisticas do trabalho 3
+  int memacc;
+  int pagfalt;
+  //Páginas diferentes acedidas
+  HashMap<Integer, Boolean> pagdiff = new HashMap<Integer, Boolean>();
+  int pagwrite;
   
+  public void memoryAccess() {
+    memacc++;
+  }
+  
+  public void pageAccess(int page) {
+   pagdiff.put(page, true);
+  }
+
+  //Estatisticas do trabalho 2
   long initTime;
   long CPUTime, auxCPU;
   ArrayList<String> trace;
@@ -15,12 +32,21 @@ public class MyStats {
     initTime = System.currentTimeMillis();
     CPUTime = 0;
     trace = new ArrayList<String>();
+    //T3
+    memacc = 0;
+    pagfalt = 0;
+    pagwrite = 0;
   }
   
   public String Publish() {
-    long fim = System.currentTimeMillis();
-    return "Tempo decorrido: " + (fim-initTime) + "\n"
-        + "CPU: " + CPUTime;
+    return "Número de acessos a memória:           " + memacc         + "\n"
+          +"Número de páginas diferentes acedidas: " + pagdiff.size() + "\n"
+          +"Número de falta de páginas:            " + pagfalt        + "\n"
+          +"Número de páginas escritas para disco: " + pagwrite       + "\n";
+
+    //long fim = System.currentTimeMillis();
+    //return "Tempo decorrido: " + (fim-initTime) + "\n"
+        //+ "CPU: " + CPUTime;
   }
   
   public Iterator<String> getTrace() {
@@ -48,7 +74,12 @@ public class MyStats {
   public void reset() {
     initTime = System.currentTimeMillis();
     CPUTime = 0;
+    memacc = 0;
+    pagfalt = 0;
+    pagwrite = 0;
   }
+
+  
   
   
 

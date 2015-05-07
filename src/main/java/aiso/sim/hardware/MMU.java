@@ -9,6 +9,8 @@ import aiso.sim.Configuration;
 import aiso.sim.instructions.MemoryAccess;
 import aiso.sim.instructions.MemoryLoad;
 import aiso.sim.os.MyOS;
+import aiso.sim.os.MyStats;
+import aiso.sim.os.OperatingSystem;
 
 public class MMU implements Clockable{
 
@@ -23,7 +25,10 @@ public class MMU implements Clockable{
   public boolean[] valid;
   public List<Integer> memFrames;
   
+  MyStats stats;
+  
   public MMU(){
+
     pageToFrame = new int[ADRESSES];
     frameToPage = new int[TABLESIZE];
     valid = new boolean[ADRESSES];
@@ -46,6 +51,11 @@ public class MMU implements Clockable{
   }
   
   public void store(long page){
+
+    if (stats == null) stats = OperatingSystem.getInstance().getStats();
+    stats.memoryAccess();
+    stats.pageAccess((int) page);
+
     //boolean result = false;
     //if(!freeMem.isEmpty()){
     int alocFrame = memFrames.get(0);
@@ -65,7 +75,12 @@ public class MMU implements Clockable{
   }
   
   public void load(long page) throws Exception{
+
+    if (stats == null) stats = OperatingSystem.getInstance().getStats();
+    stats.pageAccess((int) page);
+
     if(valid[(int) page] == true){
+      stats.memoryAccess();
       //ir buscar frame da memoria
       System.out.println("page " + page + " loaded from frame " + pageToFrame[(int)page]);
     }

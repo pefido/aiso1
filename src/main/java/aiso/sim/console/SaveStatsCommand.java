@@ -32,15 +32,8 @@ public class SaveStatsCommand extends ConsoleCommand {
     PrintWriter out;
     try {
       out = new PrintWriter(naem);
+      out.println("-----Stats-----");
       out.println(megaStats);
-      out.println();
-      out.println("-----TRACe-----");
-      out.println("PID | EVENT");
-      //ITERADOR
-      Iterator<String> iterator = st.getTrace();
-      while (iterator.hasNext()) {
-        out.println(iterator.next());
-      }
       out.close();
       Console.out.println("Stats saved");
     } catch (FileNotFoundException e) {
