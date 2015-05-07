@@ -33,7 +33,7 @@ public class Timer extends Interrupter implements Clockable {
   @Override
   public void tick() {
     if(firstTime){
-      timer = TIMER_TIME*2;
+      timer = TIMER_TIME*100;
       firstTime = false;
     }
       if(timer == 1){

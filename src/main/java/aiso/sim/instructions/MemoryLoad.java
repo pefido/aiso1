@@ -1,6 +1,8 @@
 package aiso.sim.instructions;
 
 import aiso.sim.hardware.CPUCore;
+import aiso.sim.hardware.Interrupt;
+import aiso.sim.hardware.InvalidRegisterException;
 
 /**
  * Class representing a memory load instruction
@@ -19,8 +21,10 @@ public class MemoryLoad extends MemoryAccess {
 	}
 	
 	@Override
-	public void run (CPUCore cpuCore) {
+	public void run (CPUCore cpuCore) throws InvalidRegisterException {
 		System.out.println(this);
+		cpuCore.setRegisters(0, address);
+    cpuCore.handleInterrupt(Interrupt.LOAD);
 	}
 	
 	@Override
