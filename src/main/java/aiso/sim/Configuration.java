@@ -6,6 +6,7 @@ import aiso.sim.hardware.Clockable;
 import aiso.sim.hardware.MMU;
 import aiso.sim.hardware.PageSubAlg;
 import aiso.sim.hardware.PageSubFIFO;
+import aiso.sim.hardware.PageSubSecond;
 import aiso.sim.hardware.RAM;
 import aiso.sim.hardware.SimpleCPUCore;
 import aiso.sim.instructions.Computation;
@@ -62,7 +63,7 @@ public class Configuration {
   /**
    * algoritmo de substituição de páginas
    */
-  public static final PageSubAlg subAlg = new PageSubFIFO();
+  public static final PageSubAlg subAlg = new PageSubSecond();
 
   /**
    * Statistics
@@ -73,7 +74,7 @@ public class Configuration {
   /**
    * Installed RAM
    */
-  public static final RAM ram = new RAM(20 * MByte, 32);
+  public static final RAM ram = new RAM(MByte, 32);
 
   /**
    *  The class implementing the interrupt controller 

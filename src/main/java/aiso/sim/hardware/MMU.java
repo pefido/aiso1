@@ -65,25 +65,8 @@ public class MMU implements Clockable{
       stats.discWrite();
     }
     else{
-      alocFrame = memFrames.get(0);
-      memFrames.remove(0);
-      pageToFrame[(int) page] = alocFrame;
-      frameToPage[alocFrame] = (int)page;
-      valid[(int) page] = true;
-      memFrames.add(alocFrame);
+      alocFrame = subAlg.alocFrame(pageToFrame, frameToPage, valid, memFrames, page);
     }
-    
-
-    /*int alocFrame = memFrames.get(0);
-    memFrames.remove(0);
-    pageToFrame[(int) page] = alocFrame;
-    if(frameToPage[alocFrame] != -1){//se a memoria tava a ser utilizada, guardar em disco e invalidar o bit valid
-      stats.discWrite();
-      valid[frameToPage[alocFrame]] = false;
-    }
-    frameToPage[alocFrame] = (int)page;
-    valid[(int) page] = true;
-    memFrames.add(alocFrame);*/
     System.out.println("maloc frame " + alocFrame + " for page " + page);
   }
   
@@ -107,25 +90,8 @@ public class MMU implements Clockable{
         stats.discWrite();
       }
       else{
-        alocFrame = memFrames.get(0);
-        memFrames.remove(0);
-        pageToFrame[(int) page] = alocFrame;
-        frameToPage[alocFrame] = (int)page;
-        valid[(int) page] = true;
-        memFrames.add(alocFrame);
+        alocFrame = subAlg.alocFrame(pageToFrame, frameToPage, valid, memFrames, page);
       }
-      
-      
-      
-        /*int alocFrame = memFrames.get(0);
-        if(frameToPage[alocFrame] != -1){
-          valid[frameToPage[alocFrame]] = false;
-        }
-        memFrames.remove(0);
-        pageToFrame[(int) page] = alocFrame;
-        valid[(int) page] = true;
-        memFrames.add(alocFrame);*/
-        
         System.out.println("maloc frame " + alocFrame + " for page " + page);
         //voltar a executar a instrucao
         this.load(page);
