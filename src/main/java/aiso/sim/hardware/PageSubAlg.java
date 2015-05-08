@@ -1,0 +1,8 @@
+package aiso.sim.hardware;
+
+import java.util.List;
+
+public interface PageSubAlg {
+
+  public int alocFrame(int[] pageToFrame, int[] frameToPage, boolean[] valid, List<Integer> memFrames, long page);
+}

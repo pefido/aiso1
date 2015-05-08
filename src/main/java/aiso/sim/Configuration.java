@@ -4,6 +4,8 @@ import aiso.sim.hardware.AbstractInterruptController;
 import aiso.sim.hardware.CPUCore;
 import aiso.sim.hardware.Clockable;
 import aiso.sim.hardware.MMU;
+import aiso.sim.hardware.PageSubAlg;
+import aiso.sim.hardware.PageSubFIFO;
 import aiso.sim.hardware.RAM;
 import aiso.sim.hardware.SimpleCPUCore;
 import aiso.sim.instructions.Computation;
@@ -56,6 +58,11 @@ public class Configuration {
    *  The scheduler
    */
   public static final MySchedulerAlg scheduler = new SimpleScheduler() ;
+  
+  /**
+   * algoritmo de substituição de páginas
+   */
+  public static final PageSubAlg subAlg = new PageSubFIFO();
 
   /**
    * Statistics

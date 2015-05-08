@@ -20,10 +20,11 @@ public class MMU implements Clockable{
   public static int ADRESSES = 1048576;
 
   //public Map<Integer, Integer> pageTable;
-  public int[] pageToFrame;
-  public int[] frameToPage;
-  public boolean[] valid;
-  public List<Integer> memFrames;
+  private int[] pageToFrame;
+  private int[] frameToPage;
+  private boolean[] valid;
+  private List<Integer> memFrames;
+  private PageSubAlg subAlg;
   
   MyStats stats;
   
@@ -33,6 +34,7 @@ public class MMU implements Clockable{
     frameToPage = new int[TABLESIZE];
     valid = new boolean[ADRESSES];
     memFrames = new LinkedList<Integer>();
+    subAlg = Configuration.subAlg;
     for(boolean a: valid)
       a = false;
     for(long b: frameToPage)
@@ -43,22 +45,36 @@ public class MMU implements Clockable{
     }
   }
   
-  public long getFrame(int page){
+  /*public long getFrame(int page){
     long result = -1;
     if(valid[page] == true)
       result = pageToFrame[page];
     return result;
-  }
+  }*/
   
   public void store(long page){
 
     if (stats == null) stats = OperatingSystem.getInstance().getStats();
     stats.memoryAccess();
     stats.pageAccess((int) page);
+    
+    int alocFrame;
+    
+    if(frameToPage[memFrames.get(0)] != -1){//se a memoria tava a ser uzada, usar algoritmo
+      alocFrame = subAlg.alocFrame(pageToFrame, frameToPage, valid, memFrames, page);
+      stats.discWrite();
+    }
+    else{
+      alocFrame = memFrames.get(0);
+      memFrames.remove(0);
+      pageToFrame[(int) page] = alocFrame;
+      frameToPage[alocFrame] = (int)page;
+      valid[(int) page] = true;
+      memFrames.add(alocFrame);
+    }
+    
 
-    //boolean result = false;
-    //if(!freeMem.isEmpty()){
-    int alocFrame = memFrames.get(0);
+    /*int alocFrame = memFrames.get(0);
     memFrames.remove(0);
     pageToFrame[(int) page] = alocFrame;
     if(frameToPage[alocFrame] != -1){//se a memoria tava a ser utilizada, guardar em disco e invalidar o bit valid
@@ -67,12 +83,8 @@ public class MMU implements Clockable{
     }
     frameToPage[alocFrame] = (int)page;
     valid[(int) page] = true;
-    memFrames.add(alocFrame);
+    memFrames.add(alocFrame);*/
     System.out.println("maloc frame " + alocFrame + " for page " + page);
-    //result = true;
-    //}
-    //else System.out.println("mem full!!!");
-    //return result;
   }
   
   public void load(long page) throws Exception{
