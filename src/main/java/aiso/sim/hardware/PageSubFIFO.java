@@ -9,7 +9,7 @@ public class PageSubFIFO implements PageSubAlg{
 
     int alocFrame;
 
-    if(frameToPage[memFrames.get(0)] != -1){
+    if(frameToPage[memFrames.get(0)] != -1){//memoria  ta ocupada
       alocFrame = memFrames.get(0);
       memFrames.remove(0);
       pageToFrame[(int) page] = alocFrame;
@@ -18,7 +18,7 @@ public class PageSubFIFO implements PageSubAlg{
       valid[(int) page] = true;
       memFrames.add(alocFrame);
     }
-    else{
+    else{//memoria n esta ocupada
       alocFrame = memFrames.get(0);
       memFrames.remove(0);
       pageToFrame[(int) page] = alocFrame;
