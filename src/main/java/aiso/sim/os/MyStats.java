@@ -43,14 +43,15 @@ public class MyStats {
     //T3
     memacc = 0;
     pagfalt = 0;
-    pagwrite = 0;
+    //int TABLESIZE = (int)(aiso.sim.Configuration.ram.capacity/4096);
+    pagwrite = -aiso.sim.Configuration.ramSize/4096;
   }
   
   public String Publish() {
-    return "Número de acessos a memória:           " + memacc         + "\n"
-          +"Número de páginas diferentes acedidas: " + pagdiff.size() + "\n"
-          +"Número de falta de páginas:            " + pagfalt        + "\n"
-          +"Número de páginas escritas para disco: " + pagwrite       + "\n";
+    return "Número de acessos a memória:           " + memacc                + "\n"
+          +"Número de páginas diferentes acedidas: " + pagdiff.size()        + "\n"
+          +"Número de falta de páginas:            " + pagfalt               + "\n"
+          +"Número de páginas escritas para disco: " + Math.max(pagwrite, 0) + "\n";
 
     //long fim = System.currentTimeMillis();
     //return "Tempo decorrido: " + (fim-initTime) + "\n"
@@ -84,7 +85,7 @@ public class MyStats {
     CPUTime = 0;
     memacc = 0;
     pagfalt = 0;
-    pagwrite = 0;
+    pagwrite = -aiso.sim.Configuration.ramSize/4096;
   }
 
 

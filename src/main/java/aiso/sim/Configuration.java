@@ -74,7 +74,8 @@ public class Configuration {
   /**
    * Installed RAM
    */
-  public static final RAM ram = new RAM(MByte, 32);
+  public static final int ramSize = MByte;
+  public static final RAM ram = new RAM(ramSize, 32);
 
   /**
    *  The class implementing the interrupt controller 
