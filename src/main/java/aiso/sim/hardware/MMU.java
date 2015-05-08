@@ -99,23 +99,36 @@ public class MMU implements Clockable{
     }
     else{//não tá em memoria
       stats.pageFault();
-      //if(!freeMem.isEmpty()){//se existir memoria livre
-        int alocFrame = memFrames.get(0);
+      
+      int alocFrame;
+      
+      if(frameToPage[memFrames.get(0)] != -1){//se a memoria tava a ser uzada, usar algoritmo
+        alocFrame = subAlg.alocFrame(pageToFrame, frameToPage, valid, memFrames, page);
+        stats.discWrite();
+      }
+      else{
+        alocFrame = memFrames.get(0);
+        memFrames.remove(0);
+        pageToFrame[(int) page] = alocFrame;
+        frameToPage[alocFrame] = (int)page;
+        valid[(int) page] = true;
+        memFrames.add(alocFrame);
+      }
+      
+      
+      
+        /*int alocFrame = memFrames.get(0);
         if(frameToPage[alocFrame] != -1){
           valid[frameToPage[alocFrame]] = false;
         }
         memFrames.remove(0);
         pageToFrame[(int) page] = alocFrame;
         valid[(int) page] = true;
+        memFrames.add(alocFrame);*/
+        
         System.out.println("maloc frame " + alocFrame + " for page " + page);
-        memFrames.add(alocFrame);
         //voltar a executar a instrucao
         this.load(page);
-      /*}
-      else{
-        //usar algoritmo para libertar memoria
-        System.out.println("mem full!!!");
-      }*/
     }
   }
 
