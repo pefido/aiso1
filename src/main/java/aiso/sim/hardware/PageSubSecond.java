@@ -29,29 +29,22 @@ public class PageSubSecond implements PageSubAlg{
     }
     
     int alocFrame;
-    //boolean refBit = reference.get(counter);
-    
-    
+
     while(reference.get(counter) == true){
       reference.set(counter, false);
       counter++;
       if(counter == memFrames.size())
         counter = 0;
     }
-    
-    //if(frameToPage[memFrames.get(counter)] != -1)
-      //stats.discWrite();
-    
+
     alocFrame = memFrames.get(counter);
     if(frameToPage[alocFrame] != -1)//memoria ta ocupada
       valid[frameToPage[alocFrame]] = false;
-    //memFrames.remove(0);
     pageToFrame[(int) page] = alocFrame;
     frameToPage[alocFrame] = (int)page;
     valid[(int) page] = true;
-    //memFrames.add(alocFrame);
     
-    reference.set(counter, false);
+    reference.set(counter, true);
     counter ++;
     if(counter == memFrames.size())
       counter = 0;
