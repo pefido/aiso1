@@ -5,18 +5,21 @@ import java.util.LinkedList;
 import java.util.List;
 
 import aiso.sim.os.MyOS;
+import aiso.sim.os.MyStats;
 
 public class PageSubSecond implements PageSubAlg{
 
   private List<Boolean> reference;
+  private int counter;
   private boolean firstTime;
   
   public PageSubSecond(){
     firstTime = true;
+    counter = 0;
   }
 
   @Override
-  public int alocFrame(int[] pageToFrame, int[] frameToPage, boolean[] valid, List<Integer> memFrames, long page) {
+  public int alocFrame(int[] pageToFrame, int[] frameToPage, boolean[] valid, List<Integer> memFrames, long page, MyStats stats) {
     if(firstTime){
       reference = new ArrayList<Boolean>(memFrames.size());
       for(int i = 0; i<memFrames.size(); i++){
@@ -25,32 +28,41 @@ public class PageSubSecond implements PageSubAlg{
       firstTime = false;
     }
     
-    int alocFrame = -1;
-    boolean refBit = reference.get(0);
+    int alocFrame;
+    //boolean refBit = reference.get(counter);
     
-    if(refBit == false){//o reference bit tá a 0, pode ser substituido
-     reference.remove(0);
-     reference.add(true);
-     
-     alocFrame = memFrames.get(0);
-     memFrames.remove(0);
-     pageToFrame[(int) page] = alocFrame;
-     frameToPage[alocFrame] = (int)page;
-     valid[(int) page] = true;
-     memFrames.add(alocFrame);
-     if(frameToPage[memFrames.get(0)] != -1)//memoria n ta ocupada
-       valid[frameToPage[alocFrame]] = false;
+    
+    while(reference.get(counter) == true){
+      reference.set(counter, false);
+      counter++;
+      if(counter == memFrames.size())
+        counter = 0;
     }
-    else{//o reference bit tá a 1, n pode ser removido
-      reference.remove(0);
-      reference.add(false);
-      int tmp = memFrames.get(0);
-      memFrames.remove(0);
-      memFrames.add(tmp);
-      alocFrame(frameToPage, frameToPage, valid, memFrames, page);
-    }
+    
+    //if(frameToPage[memFrames.get(counter)] != -1)
+      //stats.discWrite();
+    
+    alocFrame = memFrames.get(counter);
+    if(frameToPage[alocFrame] != -1)//memoria ta ocupada
+      valid[frameToPage[alocFrame]] = false;
+    //memFrames.remove(0);
+    pageToFrame[(int) page] = alocFrame;
+    frameToPage[alocFrame] = (int)page;
+    valid[(int) page] = true;
+    //memFrames.add(alocFrame);
+    
+    reference.set(counter, false);
+    counter ++;
+    if(counter == memFrames.size())
+      counter = 0;
 
     return alocFrame;
+  }
+
+  @Override
+  public void acessMemory(MyStats stats, int frame) {
+    stats.memoryAccess();
+    reference.set(frame, true);
   }
 
 }

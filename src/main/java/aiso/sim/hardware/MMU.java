@@ -1,5 +1,6 @@
 package aiso.sim.hardware;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class MMU implements Clockable{
     pageToFrame = new int[ADRESSES];
     frameToPage = new int[TABLESIZE];
     valid = new boolean[ADRESSES];
-    memFrames = new LinkedList<Integer>();
+    memFrames = new ArrayList<Integer>(TABLESIZE);
     subAlg = Configuration.subAlg;
     for(boolean a: valid)
       a = false;
@@ -44,14 +45,7 @@ public class MMU implements Clockable{
       memFrames.add(i);
     }
   }
-  
-  /*public long getFrame(int page){
-    long result = -1;
-    if(valid[page] == true)
-      result = pageToFrame[page];
-    return result;
-  }*/
-  
+
   public void store(long page){
 
     if (stats == null) stats = OperatingSystem.getInstance().getStats();
@@ -60,13 +54,14 @@ public class MMU implements Clockable{
     
     int alocFrame;
     
-    if(frameToPage[memFrames.get(0)] != -1){//se a memoria tava a ser uzada, usar algoritmo
-      alocFrame = subAlg.alocFrame(pageToFrame, frameToPage, valid, memFrames, page);
+    //if(frameToPage[memFrames.get(0)] != -1){//se a memoria tava a ser uzada, usar algoritmo
+      alocFrame = subAlg.alocFrame(pageToFrame, frameToPage, valid, memFrames, page, stats);
       stats.discWrite();
-    }
-    else{
-      alocFrame = subAlg.alocFrame(pageToFrame, frameToPage, valid, memFrames, page);
-    }
+    //}
+    //else{
+      //alocFrame = subAlg.alocFrame(pageToFrame, frameToPage, valid, memFrames, page);
+      //stats.discWrite();
+    //}
     System.out.println("maloc frame " + alocFrame + " for page " + page);
   }
   
@@ -76,7 +71,8 @@ public class MMU implements Clockable{
     stats.pageAccess((int) page);
 
     if(valid[(int) page] == true){
-      stats.memoryAccess();
+      subAlg.acessMemory(stats, pageToFrame[(int)page]);
+      //stats.memoryAccess();
       //ir buscar frame da memoria
       System.out.println("page " + page + " loaded from frame " + pageToFrame[(int)page]);
     }
@@ -85,13 +81,13 @@ public class MMU implements Clockable{
       
       int alocFrame;
       
-      if(frameToPage[memFrames.get(0)] != -1){//se a memoria tava a ser uzada, usar algoritmo
-        alocFrame = subAlg.alocFrame(pageToFrame, frameToPage, valid, memFrames, page);
+      //if(frameToPage[memFrames.get(0)] != -1){//se a memoria tava a ser uzada, usar algoritmo
+        alocFrame = subAlg.alocFrame(pageToFrame, frameToPage, valid, memFrames, page, stats);
         stats.discWrite();
-      }
-      else{
-        alocFrame = subAlg.alocFrame(pageToFrame, frameToPage, valid, memFrames, page);
-      }
+      //}
+      //else{
+        //alocFrame = subAlg.alocFrame(pageToFrame, frameToPage, valid, memFrames, page, stats);
+      //}
         System.out.println("maloc frame " + alocFrame + " for page " + page);
         //voltar a executar a instrucao
         this.load(page);
